@@ -198,6 +198,9 @@ cc.Class({
                             break;
                         case conf.INIT_METHOD + 3:
                             //consumeOwnedPurchase
+                            console.log("consumeOwnedPurchase called after feeForProduct")
+                            params = SDKHub.PluginParam.create("");
+                            this.sFee.callFuncWithParam("obtainProductInfo", params, null);
                             break;
                         case conf.INIT_METHOD + 4:
                             //obtainOwnedPurchases
@@ -233,25 +236,21 @@ cc.Class({
                         case conf.INIT_METHOD + 1:
                             //preloadRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
-                            console.log("preloadReward Ads, params = ", params);
                             this.sAds.preloadAds(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //showRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
-                            console.log("showReward Ads, params = ", params);
                             this.sAds.showAds(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //preloadInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
-                            console.log("preloadInterstitial Ads, params = ", params);
                             this.sAds.preloadAds(params);
                             break;
                         case conf.INIT_METHOD + 4:
                             //showInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
-                            console.log("showInterstitial Ads, params = ", params);
                             this.sAds.showAds(params);
                             break;
                         default:
@@ -306,7 +305,6 @@ cc.Class({
                             var params = SDKHub.PluginParam.create({
                                 "type" : 1
                             });
-                            console.log("getShowAchievementListIntent, params = ", params);
                             this.sUser.callFuncWithParam("showAchievements", params, null);
 
                             break;
@@ -315,7 +313,6 @@ cc.Class({
                             var params = SDKHub.PluginParam.create({
                                 "type" : 0
                             });
-                            console.log("getShowAchievementList, params = ", params);
                             this.sUser.callFuncWithParam("showAchievements", params, null);
                             break;
                         default:
@@ -334,7 +331,6 @@ cc.Class({
                                 "type" : "visualizeWithResult",
                                 "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
                             };
-                            console.log("visualizeWithResult, params = ", params);
                             this.sUser.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 1:
@@ -344,7 +340,6 @@ cc.Class({
                                 "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
                                 "stepNum" : "3"
                             };
-                            console.log("growWithResult, params = ", params);
                             this.sUser.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 2:
@@ -354,7 +349,6 @@ cc.Class({
                                 "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
                                 "stepNum" : "3"
                             };
-                            console.log("makeStepsWithResult, params = ", params);
                             this.sUser.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 3:
@@ -363,7 +357,6 @@ cc.Class({
                                 "type" : "reachWithResult",
                                 "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
                             };
-                            console.log("reachWithResult, params = ", params);
                             this.sUser.unlockAchievement(params);
                             break;
                         default:
@@ -381,7 +374,6 @@ cc.Class({
                             var params = {
                                 "type" : "getRankingSwitchStatus",
                             };
-                            console.log("getRankingSwitchStatus, params = ", params);
                             this.sUser.submitScore(params);
                             break;
                         case conf.INIT_METHOD + 1:
@@ -390,7 +382,6 @@ cc.Class({
                                 "type" : "setRankingSwitchStatus",
                                 "stateValue" : 1
                             };
-                            console.log("setRankingSwitchStatus, params = ", params);
                             this.sUser.submitScore(params);
                             break;
                         case conf.INIT_METHOD + 2:
@@ -401,7 +392,6 @@ cc.Class({
                                 "score" : "15000",
                                 "scoreTips" : "分数"
                             };
-                            console.log("submitRankingScore, params = ", params);
                             this.sUser.submitScore(params);
                             break;
                         default:
@@ -417,10 +407,8 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //getTotalRankingsIntent
                             var params = {
-                                "type" : "getTotalRankingsIntent", //改
-                                //"rankingId" : ""
+                                "type" : "getTotalRankingsIntent",
                             };
-                            console.log("getTotalRankingsIntent, params = ", params);
                             this.sUser.showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 1:
@@ -430,7 +418,6 @@ cc.Class({
                                 "rankingId" : "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
                                 "isRealTime" : "1"
                             };
-                            console.log("getRankingSummary, params = ", params);
                             this.sUser.showLeaderBoard(params);
                             break;
                         default:
@@ -449,18 +436,18 @@ cc.Class({
 
     onUserResult:function(pUser, code, msg){
         console.log("on user result action.");
-        console.log("code:"+code);
-        console.log("msg:"+msg);
+        console.log("code: " + code);
+        console.log("msg: " + msg);
         // switch(code) {
         //     case 50000:
         //         break;
         // }
     },
 
-    onFeeResult:function(pFee, code, msg){
+    onFeeResult:function(code, msg){
         console.log("on fee result action.");
-        console.log("code:"+code); 
-        console.log("msg:"+msg); 
+        console.log("code: "+ code); 
+        console.log("msg: " + msg); 
         // switch(code) {
         //     case 30000:
         //         break;
@@ -469,8 +456,8 @@ cc.Class({
 
     onAdsResult:function(code, msg){
         console.log("on ads result action.");
-        console.log("code:"+code);
-        console.log("msg:"+msg); 
+        console.log("code: " + code);
+        console.log("msg: " + msg); 
         // switch(code) {
         //     case 40000:
         //         break;
