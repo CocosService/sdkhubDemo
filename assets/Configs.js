@@ -1,7 +1,7 @@
 var obj = {
 // ["本层Menu名", "上层Menu名", "按钮1 return", "按钮2".....]
     INIT_METHOD : 3,
-    top : ["top", "", "Account & Game", "IAP", "Ads", "Custom"],
+    top : ["top", "", "Account & Game", "IAP", "Ads"],
 
     //二级菜单
     user : ["user", "top", "return", "login", "logout", "showToolBar", "hideToolBar", "cancelAuthorization", "getUserInfo", "showAchievements", "unlockAchievement", "submitScore", "showLeaderBoard", "submitEvent", "getEvent", "submitPlayerEventStart", "getExtraInfo", "submitPlayerEventEnd", "archiveFunction", "getGamePlayerStats", "getGameSummary"],

@@ -16,27 +16,19 @@ cc.Class({
         parentname: null, // 上一个节点名称
         currentname: null, // 当前节点名称
 
-        inAppPurchaseData : null //支付回执，consumeOwnedPurchase 使用
+        inAppPurchaseData: null //支付回执，consumeOwnedPurchase 使用
     },
 
     start() {
         this.btnButton.node.on('touchend', this.buttonPressed.bind(this));
         this.btnScene = cc.find("Canvas").getComponent("ButtonsScene");
-
-        this.sUser = SDKHub.AgentManager.getInstance().getUserPlugin();
-        this.sFee = SDKHub.AgentManager.getInstance().getFeePlugin();
-        this.sAds = SDKHub.AgentManager.getInstance().getAdsPlugin();
-
-        this.sUser.setActionListener(this.onUserResult, this);
-        this.sFee.setResultListener(this.onFeeResult, this);
-        this.sAds.setAdsListener(this.onAdsResult, this);
     },
 
     buttonPressed() {
         console.log(this.currentname, this.lblButton.string + " button pressed");
 
         if (this.parentname == "top" && this.lblButton.string == "return") {
-            this.btnScene.setButtons(conf.top);
+            this.btnScene.setButtons(this.topConfig);
             return;
         }
         else if (this.parentname == "user" && this.lblButton.string == "return") {
@@ -109,9 +101,9 @@ cc.Class({
                         case conf.INIT_METHOD + 10:
                             //submitEvent
                             var params = SDKHub.PluginParam.create({
-                                "eventId" : "A29DB82609936BE9DBB44CF7AFBBAECD5D2B7F14A05FB2B37EF543E7622F7B7F",
-                                "growAmount" : "20"
-                            })
+                                "eventId": "A29DB82609936BE9DBB44CF7AFBBAECD5D2B7F14A05FB2B37EF543E7622F7B7F",
+                                "growAmount": "20"
+                            });
                             this.sUser.callFuncWithParam("submitEvent", params, null);
                             break;
                         case conf.INIT_METHOD + 11:
@@ -179,8 +171,8 @@ cc.Class({
                                 "payType": 0, //0: 按价格支付 1: 按商品配置支付，默认为1
                                 "priceType": 0, //0: consumable; 1: non-consumable; 必传
                                 "serviceCatalog": "X6", //游戏设置为"X6"，应用设置为"X5"
-                                "currency" : "CNY", //货币，默认 CNY
-                                "country" : "CN" //国家或地区，默认 CN
+                                "currency": "CNY", //货币，默认 CNY
+                                "country": "CN" //国家或地区，默认 CN
                             }
                             this.sFee.feeForProduct(params);
                             break;
@@ -191,8 +183,8 @@ cc.Class({
                         case conf.INIT_METHOD + 2:
                             //obtainProductInfo
                             var params = SDKHub.PluginParam.create({
-                                "productIdList" : "com.sdkboxv2.sample.huawei.item1,com.sdkboxv2.sample.huawei.item3",
-                                "priceType" : 0
+                                "productIdList": "com.sdkboxv2.sample.huawei.item1,com.sdkboxv2.sample.huawei.item3",
+                                "priceType": 0
                             });
                             this.sFee.callFuncWithParam("obtainProductInfo", params, null);
                             break;
@@ -303,7 +295,7 @@ cc.Class({
                             //改框架写法
 
                             var params = SDKHub.PluginParam.create({
-                                "type" : 1
+                                "type": 1
                             });
                             this.sUser.callFuncWithParam("showAchievements", params, null);
 
@@ -311,7 +303,7 @@ cc.Class({
                         case conf.INIT_METHOD + 1:
                             //getAchievementList
                             var params = SDKHub.PluginParam.create({
-                                "type" : 0
+                                "type": 0
                             });
                             this.sUser.callFuncWithParam("showAchievements", params, null);
                             break;
@@ -328,34 +320,34 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //visualizeWithResult
                             var params = {
-                                "type" : "visualizeWithResult",
-                                "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
+                                "type": "visualizeWithResult",
+                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
                             };
                             this.sUser.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //growWithResult
                             var params = {
-                                "type" : "growWithResult",
-                                "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
-                                "stepNum" : "3"
+                                "type": "growWithResult",
+                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
+                                "stepNum": "3"
                             };
                             this.sUser.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //makeStepsWithResult
                             var params = {
-                                "type" : "makeStepsWithResult",
-                                "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
-                                "stepNum" : "3"
+                                "type": "makeStepsWithResult",
+                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
+                                "stepNum": "3"
                             };
                             this.sUser.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //reachWithResult
                             var params = {
-                                "type" : "reachWithResult",
-                                "achievementId" : "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
+                                "type": "reachWithResult",
+                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
                             };
                             this.sUser.unlockAchievement(params);
                             break;
@@ -372,25 +364,25 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //getRankingSwitchStatus
                             var params = {
-                                "type" : "getRankingSwitchStatus",
+                                "type": "getRankingSwitchStatus",
                             };
                             this.sUser.submitScore(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //setRankingSwitchStatus
                             var params = {
-                                "type" : "setRankingSwitchStatus",
-                                "stateValue" : 1
+                                "type": "setRankingSwitchStatus",
+                                "stateValue": 1
                             };
                             this.sUser.submitScore(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //submitRankingScore
                             var params = {
-                                "type" : "submitRankingScore",
-                                "rankingId" : "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
-                                "score" : "15000",
-                                "scoreTips" : "分数"
+                                "type": "submitRankingScore",
+                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "score": "15000",
+                                "scoreTips": "分数"
                             };
                             this.sUser.submitScore(params);
                             break;
@@ -407,16 +399,16 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //getTotalRankingsIntent
                             var params = {
-                                "type" : "getTotalRankingsIntent",
+                                "type": "getTotalRankingsIntent",
                             };
                             this.sUser.showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //getRankingSummary
                             var params = {
-                                "type" : "getRankingSummary",
-                                "rankingId" : "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
-                                "isRealTime" : "1"
+                                "type": "getRankingSummary",
+                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "isRealTime": "1"
                             };
                             this.sUser.showLeaderBoard(params);
                             break;
@@ -428,41 +420,15 @@ cc.Class({
         }
     },
 
-    setContent(current, parent, name) {
+    setContent(current, parent, name, topconfig, user, fee, ads) {
         this.parentname = parent;
         this.currentname = current;
         this.lblButton.string = name;
-    },
-
-    onUserResult:function(pUser, code, msg){
-        console.log("on user result action.");
-        console.log("code: " + code);
-        console.log("msg: " + msg);
-        // switch(code) {
-        //     case 50000:
-        //         break;
-        // }
-    },
-
-    onFeeResult:function(code, msg){
-        console.log("on fee result action.");
-        console.log("code: "+ code); 
-        console.log("msg: " + msg); 
-        // switch(code) {
-        //     case 30000:
-        //         break;
-        // }
-    },
-
-    onAdsResult:function(code, msg){
-        console.log("on ads result action.");
-        console.log("code: " + code);
-        console.log("msg: " + msg); 
-        // switch(code) {
-        //     case 40000:
-        //         break;
-        // }
-    },
+        this.topConfig = topconfig;
+        this.sUser = user;
+        this.sFee = fee;
+        this.sAds = ads;
+    }
 
     // update (dt) {},
 });
