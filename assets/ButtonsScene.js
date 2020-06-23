@@ -30,32 +30,30 @@ cc.Class({
     this.scrollView.scrollToTop(0.1);
 
     this.topConfig = conf.top;
-    var pluginArray = SDKHub.AgentManager.getInstance().getSupportPlugin();
+    var pluginArray = SDKHub.AgentManager.getInstance().getSupportPluginIds();
+    console.log("pluginArray", pluginArray);
     if (pluginArray.indexOf("Ads") != -1) {
       this.sAds = SDKHub.AgentManager.getInstance().getAdsPlugin();
     }
     else {
       this.topConfig.splice(4, 1);
-      console.log("topConfig splice 4-1 ", this.topConfig);
     }
     if (pluginArray.indexOf("Fee") != -1) {
       this.sFee = SDKHub.AgentManager.getInstance().getFeePlugin();
     }
     else {
       this.topConfig.splice(3, 1);
-      console.log("topConfig splice 3-1 ", this.topConfig);
     }
     if (pluginArray.indexOf("User") != -1) {
       this.sUser = SDKHub.AgentManager.getInstance().getUserPlugin();
     }
     else {
       this.topConfig.splice(2, 1);
-      console.log("topConfig splice 2-1 ", this.topConfig);
     }
 
-    if (this.sUser) this.sUser.setActionListener(this.onUserResult, this);
-    if (this.sFee) this.sFee.setResultListener(this.onFeeResult, this);
-    if (this.sAds) this.sAds.setAdsListener(this.onAdsResult, this);
+    if (this.sUser) this.sUser.setListener(this.onUserResult, this);
+    if (this.sFee) this.sFee.setListener(this.onFeeResult, this);
+    if (this.sAds) this.sAds.setListener(this.onAdsResult, this);
 
     this.setButtons(this.topConfig);
   },
@@ -74,7 +72,7 @@ cc.Class({
   },
 
 
-  onUserResult: function (pUser, code, msg) {
+  onUserResult: function (code, msg) {
     console.log("on user result action.");
     console.log("code: " + code);
     console.log("msg: " + msg);

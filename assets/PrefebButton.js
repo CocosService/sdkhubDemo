@@ -76,54 +76,54 @@ cc.Class({
                     switch (i) {
                         case conf.INIT_METHOD:
                             //login
-                            this.sUser.login();
+                            this.user.login();
                             break;
                         case conf.INIT_METHOD + 1:
                             //logout
-                            this.sUser.callFuncWithParam("logout", null);
+                            this.user.logout();
                             break;
                         case conf.INIT_METHOD + 2:
                             //showToolBar
-                            this.sUser.showToolBar(1);
+                            this.user.showToolBar(1);
                             break;
                         case conf.INIT_METHOD + 3:
                             //hideToolBar
-                            this.sUser.hideToolBar();
+                            this.user.hideToolBar();
                             break;
                         case conf.INIT_METHOD + 4:
                             //cancelAuthorization
-                            this.sUser.callFuncWithParam("cancelAuthorization", null);
+                            this.user.callFuncWithParam("cancelAuthorization");
                             break;
                         case conf.INIT_METHOD + 5:
                             //getUserInfo = getCurrentPlayer()
-                            this.sUser.callFuncWithParam("getUserInfo", null);
+                            this.user.callFuncWithParam("getUserInfo");
                             break;
                         case conf.INIT_METHOD + 10:
                             //submitEvent
-                            var params = SDKHub.PluginParam.create({
+                            var params = {
                                 "eventId": "A29DB82609936BE9DBB44CF7AFBBAECD5D2B7F14A05FB2B37EF543E7622F7B7F",
                                 "growAmount": "20"
-                            });
-                            this.sUser.callFuncWithParam("submitEvent", params, null);
+                            };
+                            this.user.callFuncWithParam("submitEvent", params);
                             break;
                         case conf.INIT_METHOD + 11:
                             //getEvent
                             //eventIds
                             //forceLoad
-                            var params = SDKHub.PluginParam.create({});
-                            this.sUser.callFuncWithParam("getEvent", params, null);
+                            var params = {};
+                            this.user.callFuncWithParam("getEvent", params);
                             break;
                         case conf.INIT_METHOD + 12:
                             //submitPlayerEventStart
-                            this.sUser.callFuncWithParam("submitPlayerEventStart", null);
+                            this.user.callFuncWithParam("submitPlayerEventStart");
                             break;
                         case conf.INIT_METHOD + 13:
                             //getExtraInfo
-                            this.sUser.callFuncWithParam("getExtraInfo", null);
+                            this.user.callFuncWithParam("getExtraInfo");
                             break;
                         case conf.INIT_METHOD + 14:
                             //submitPlayerEventEnd
-                            this.sUser.callFuncWithParam("submitPlayerEventEnd", null);
+                            this.user.callFuncWithParam("submitPlayerEventEnd");
                             break;
                         case conf.INIT_METHOD + 15:
                             //archiveFunction
@@ -131,13 +131,13 @@ cc.Class({
                             break;
                         case conf.INIT_METHOD + 16:
                             //getGamePlayerStats
-                            var params = SDKHub.PluginParam.create(0);
-                            this.sUser.callFuncWithParam("getGamePlayerStats", params, null);
+                            var params = 0;
+                            this.user.callFuncWithParam("getGamePlayerStats", params);
                             break;
                         case conf.INIT_METHOD + 17:
                             //getGameSummary
-                            var params = SDKHub.PluginParam.create(0);
-                            this.sUser.callFuncWithParam("getGameSummary", params, null);
+                            var params = 0;
+                            this.user.callFuncWithParam("getGameSummary", params);
                             break;
                         default:
                             console.log("user function: '" + this.lblButton.string + "' not called");
@@ -174,35 +174,35 @@ cc.Class({
                                 "currency": "CNY", //货币，默认 CNY
                                 "country": "CN" //国家或地区，默认 CN
                             }
-                            this.sFee.feeForProduct(params);
+                            this.fee.feeForProduct(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //isEnvReady
-                            this.sFee.callFuncWithParam("isEnvReady", null);
+                            this.fee.callFuncWithParam("isEnvReady");
                             break;
                         case conf.INIT_METHOD + 2:
                             //obtainProductInfo
-                            var params = SDKHub.PluginParam.create({
+                            var params = {
                                 "productIdList": "com.sdkboxv2.sample.huawei.item1,com.sdkboxv2.sample.huawei.item3",
                                 "priceType": 0
-                            });
-                            this.sFee.callFuncWithParam("obtainProductInfo", params, null);
+                            };
+                            this.fee.callFuncWithParam("obtainProductInfo", params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //consumeOwnedPurchase
-                            console.log("consumeOwnedPurchase called after feeForProduct")
-                            params = SDKHub.PluginParam.create("");
-                            this.sFee.callFuncWithParam("obtainProductInfo", params, null);
+                            console.log("consumeOwnedPurchase, called after feeForProduct")
+                            params = "{\"autoRenewing\":false,\"orderId\":\"2020062217560950540a857561.102164071\",\"packageName\":\"com.sdkboxv2.sample.huawei\",\"applicationId\":102164071,\"kind\":0,\"productId\":\"2\",\"productName\":\"10元宝\",\"purchaseTime\":1592902971000,\"purchaseTimeMillis\":1592902971000,\"purchaseState\":0,\"developerPayload\":\"test\",\"purchaseToken\":\"00000172e06a6ffc7e698a6c7c059648c71652874676a369b7d004c479c21a780b3537731ccbf846x434e.1.102164071\",\"consumptionState\":0,\"confirmed\":0,\"purchaseType\":0,\"currency\":\"CNY\",\"price\":1,\"country\":\"CN\",\"payOrderId\":\"sandbox202006230502513581D7E22\",\"payType\":\"4\"}";
+                            this.fee.callFuncWithParam("consumeOwnedPurchase", params);
                             break;
                         case conf.INIT_METHOD + 4:
                             //obtainOwnedPurchases
-                            var params = SDKHub.PluginParam.create(0);
-                            this.sFee.callFuncWithParam("obtainOwnedPurchases", params, null);
+                            var params = 0;
+                            this.fee.callFuncWithParam("obtainOwnedPurchases", params);
                             break;
                         case conf.INIT_METHOD + 5:
                             //obtainOwnedPurchaseRecord
-                            var params = SDKHub.PluginParam.create(0);
-                            this.sFee.callFuncWithParam("obtainOwnedPurchaseRecord", params, null);
+                            var params = 0;
+                            this.fee.callFuncWithParam("obtainOwnedPurchaseRecord", params);
                             break;
                         case conf.INIT_METHOD + 6:
                             //subscribeManager
@@ -222,28 +222,29 @@ cc.Class({
                     switch (i) {
                         case conf.INIT_METHOD:
                             //showBannerAd
-                            var params = { "adType": "Banner", "adId": "testw6vs28auh3" }
-                            this.sAds.showAds(params);
+                            var params = { "adType": "Banner", "adId": "testw6vs28auh3", "pos": "0", "adSize": "BANNER_SIZE_360_144"};
+                            console.log("showBannerAd");
+                            this.ads.showAds(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //preloadRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
-                            this.sAds.preloadAds(params);
+                            this.ads.preloadAds(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //showRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
-                            this.sAds.showAds(params);
+                            this.ads.showAds(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //preloadInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
-                            this.sAds.preloadAds(params);
+                            this.ads.preloadAds(params);
                             break;
                         case conf.INIT_METHOD + 4:
                             //showInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
-                            this.sAds.showAds(params);
+                            this.ads.showAds(params);
                             break;
                         default:
                             console.log("ads function: '" + this.lblButton.string + "' not called");
@@ -291,21 +292,19 @@ cc.Class({
                 if (this.lblButton.string == conf.showAchievements[i]) {
                     switch (i) {
                         case conf.INIT_METHOD:
-                            //getShowAchievementListIntent
-                            //改框架写法
 
-                            var params = SDKHub.PluginParam.create({
+                            var params = {
                                 "type": 1
-                            });
-                            this.sUser.callFuncWithParam("showAchievements", params, null);
+                            };
+                            this.user.callFuncWithParam("showAchievements", params);
 
                             break;
                         case conf.INIT_METHOD + 1:
                             //getAchievementList
-                            var params = SDKHub.PluginParam.create({
+                            var params = {
                                 "type": 0
-                            });
-                            this.sUser.callFuncWithParam("showAchievements", params, null);
+                            };
+                            this.user.callFuncWithParam("showAchievements", params);
                             break;
                         default:
                             console.log("showAchievements function: '" + this.lblButton.string + "' not called");
@@ -323,25 +322,25 @@ cc.Class({
                                 "type": "visualizeWithResult",
                                 "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
                             };
-                            this.sUser.unlockAchievement(params);
+                            this.user.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //growWithResult
                             var params = {
                                 "type": "growWithResult",
                                 "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
-                                "stepNum": "3"
+                                "stepsNum": "3"
                             };
-                            this.sUser.unlockAchievement(params);
+                            this.user.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //makeStepsWithResult
                             var params = {
                                 "type": "makeStepsWithResult",
                                 "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
-                                "stepNum": "3"
+                                "stepsNum": "3"
                             };
-                            this.sUser.unlockAchievement(params);
+                            this.user.unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //reachWithResult
@@ -349,7 +348,7 @@ cc.Class({
                                 "type": "reachWithResult",
                                 "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
                             };
-                            this.sUser.unlockAchievement(params);
+                            this.user.unlockAchievement(params);
                             break;
                         default:
                             console.log("unlockAchievement function: '" + this.lblButton.string + "' not called");
@@ -366,7 +365,7 @@ cc.Class({
                             var params = {
                                 "type": "getRankingSwitchStatus",
                             };
-                            this.sUser.submitScore(params);
+                            this.user.submitScore(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //setRankingSwitchStatus
@@ -374,7 +373,7 @@ cc.Class({
                                 "type": "setRankingSwitchStatus",
                                 "stateValue": 1
                             };
-                            this.sUser.submitScore(params);
+                            this.user.submitScore(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //submitRankingScore
@@ -384,7 +383,7 @@ cc.Class({
                                 "score": "15000",
                                 "scoreTips": "分数"
                             };
-                            this.sUser.submitScore(params);
+                            this.user.submitScore(params);
                             break;
                         default:
                             console.log("submitScore function: '" + this.lblButton.string + "' not called");
@@ -401,7 +400,7 @@ cc.Class({
                             var params = {
                                 "type": "getTotalRankingsIntent",
                             };
-                            this.sUser.showLeaderBoard(params);
+                            this.user.showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //getRankingSummary
@@ -410,7 +409,7 @@ cc.Class({
                                 "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
                                 "isRealTime": "1"
                             };
-                            this.sUser.showLeaderBoard(params);
+                            this.user.showLeaderBoard(params);
                             break;
                         default:
                             console.log("showLeaderBoard function: '" + this.lblButton.string + "' not called");
@@ -425,9 +424,9 @@ cc.Class({
         this.currentname = current;
         this.lblButton.string = name;
         this.topConfig = topconfig;
-        this.sUser = user;
-        this.sFee = fee;
-        this.sAds = ads;
+        this.user = user;
+        this.fee = fee;
+        this.ads = ads;
     }
 
     // update (dt) {},
