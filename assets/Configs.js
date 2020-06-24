@@ -5,7 +5,7 @@ var obj = {
 
     //二级菜单
     user : ["user", "top", "return", "login", "logout", "showToolBar", "hideToolBar", "cancelAuthorization", "getUserInfo", "showAchievements", "unlockAchievement", "submitScore", "showLeaderBoard", "submitEvent", "getEvent", "submitPlayerEventStart", "getExtraInfo", "submitPlayerEventEnd", "archiveFunction", "getGamePlayerStats", "getGameSummary"],
-    fee : ["fee", "top", "return", "payForProduct", "isEnvReady", "obtainProductInfo", "consumeOwnedPurchase", "obtainOwnedPurchases", "obtainOwnedPurchaseRecord"],
+    fee : ["fee", "top", "return", "payForProduct", "isEnvReady", "obtainProductInfo", "consumeOwnedPurchase", "obtainOwnedPurchases", "obtainOwnedPurchaseRecord", "startIapActivity"],
     ads : ["ads", "top", "return", "showBannerAd", "preloadRewardAd", "showRewardAd", "preloadInterstitialAd", "showInterstitialAd"],
     custom : ["custom", "top", "return", "custom1", "custom2", "custom3", "custom4", "custom 5", "custom6", "custom7", "custom8"],
 

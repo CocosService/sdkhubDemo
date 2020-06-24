@@ -205,11 +205,13 @@ cc.Class({
                             this.fee.callFuncWithParam("obtainOwnedPurchaseRecord", params);
                             break;
                         case conf.INIT_METHOD + 6:
-                            //subscribeManager
+                            //startIapActivity
+                            var params = {
+                            	"reqType" : "TYPE_SUBSCRIBE_MANAGER_ACTIVITY"
+                            };
+                            this.fee.callFuncWithParam("startIapActivity", params);
                             break;
-                        case conf.INIT_METHOD + 7:
-                            //subscribeEdit
-                            break;
+
                         default:
                             console.log("fee function: '" + this.lblButton.string + "' not called");
                     }
