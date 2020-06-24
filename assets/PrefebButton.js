@@ -95,8 +95,9 @@ cc.Class({
                             this.user.callFuncWithParam("cancelAuthorization");
                             break;
                         case conf.INIT_METHOD + 5:
-                            //getUserInfo = getCurrentPlayer()
-                            this.user.callFuncWithParam("getUserInfo");
+                            //getUserInfo
+                            var userInfo = this.user.getUserInfo();
+                            console.log("userInfo", JSON.stringify(userInfo));
                             break;
                         case conf.INIT_METHOD + 10:
                             //submitEvent
