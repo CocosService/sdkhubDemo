@@ -15,8 +15,6 @@ cc.Class({
         },
         parentname: null, // 上一个节点名称
         currentname: null, // 当前节点名称
-
-        inAppPurchaseData: null //支付回执，consumeOwnedPurchase 使用
     },
 
     start() {
@@ -119,23 +117,19 @@ cc.Class({
                             this.user.callFuncWithParam("submitPlayerEventStart");
                             break;
                         case conf.INIT_METHOD + 13:
-                            //getExtraInfo
-                            this.user.callFuncWithParam("getExtraInfo");
+                            //getPlayerExtraInfo
+                            this.user.callFuncWithParam("getPlayerExtraInfo");
                             break;
                         case conf.INIT_METHOD + 14:
                             //submitPlayerEventEnd
                             this.user.callFuncWithParam("submitPlayerEventEnd");
                             break;
                         case conf.INIT_METHOD + 15:
-                            //archiveFunction
-                            console.log("archiveFunction not supported");
-                            break;
-                        case conf.INIT_METHOD + 16:
                             //getGamePlayerStats
                             var params = 0;
                             this.user.callFuncWithParam("getGamePlayerStats", params);
                             break;
-                        case conf.INIT_METHOD + 17:
+                        case conf.INIT_METHOD + 16:
                             //getGameSummary
                             var params = 0;
                             this.user.callFuncWithParam("getGameSummary", params);
@@ -399,9 +393,9 @@ cc.Class({
                 if (this.lblButton.string == conf.showLeaderBoard[i]) {
                     switch (i) {
                         case conf.INIT_METHOD:
-                            //getTotalRankingsIntent
+                            //getRankingsIntent
                             var params = {
-                                "type": "getTotalRankingsIntent",
+                                "type": "getRankingsIntent",
                             };
                             this.user.showLeaderBoard(params);
                             break;
