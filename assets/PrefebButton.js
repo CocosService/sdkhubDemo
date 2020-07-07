@@ -147,10 +147,12 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //feeForProduct
                             var params = {
-                                "Product_Id": "2", // 必传
+                                "Product_Id": "com.sdkboxv2.sample.item3", // 商品ID, 必传
+                                "EXT": "test", //透传参数,必传
+                                
                                 "Product_Name": "10元宝", //
                                 "Product_Price": "1", //
-                                "Product_Count": "1", //
+                                "Product_Count": "1", // 
                                 "Product_Desc": "gold",
                                 "Coin_Name": "元宝",
                                 "Coin_Rate": "10",
@@ -162,8 +164,8 @@ cc.Class({
                                 "Party_Name": "test",
                                 "Server_Id": "1",
                                 "Server_Name": "test",
-                                "EXT": "test", //必传
-                                "payType": 0, //0: 按价格支付 1: 按商品配置支付，默认为1
+
+                                "payType": 1, //0: 按价格支付 1: 按商品配置支付，默认为1
                                 "priceType": 0, //0: consumable; 1: non-consumable; 必传
                                 "serviceCatalog": "X6", //游戏设置为"X6"，应用设置为"X5"
                                 "currency": "CNY", //货币，默认 CNY
@@ -178,7 +180,7 @@ cc.Class({
                         case conf.INIT_METHOD + 2:
                             //obtainProductInfo
                             var params = {
-                                "productIdList": "com.sdkboxv2.sample.huawei.item1,com.sdkboxv2.sample.huawei.item3",
+                                "productIdList": "com.sdkboxv2.sample.huawei.item1,com.sdkboxv2.sample.item3",
                                 "priceType": 0
                             };
                             this.fee.callFuncWithParam("obtainProductInfo", params);
@@ -186,7 +188,7 @@ cc.Class({
                         case conf.INIT_METHOD + 3:
                             //consumeOwnedPurchase
                             console.log("consumeOwnedPurchase, called after feeForProduct")
-                            params = "{\"autoRenewing\":false,\"orderId\":\"2020062217560950540a857561.102164071\",\"packageName\":\"com.sdkboxv2.sample.huawei\",\"applicationId\":102164071,\"kind\":0,\"productId\":\"2\",\"productName\":\"10元宝\",\"purchaseTime\":1592902971000,\"purchaseTimeMillis\":1592902971000,\"purchaseState\":0,\"developerPayload\":\"test\",\"purchaseToken\":\"00000172e06a6ffc7e698a6c7c059648c71652874676a369b7d004c479c21a780b3537731ccbf846x434e.1.102164071\",\"consumptionState\":0,\"confirmed\":0,\"purchaseType\":0,\"currency\":\"CNY\",\"price\":1,\"country\":\"CN\",\"payOrderId\":\"sandbox202006230502513581D7E22\",\"payType\":\"4\"}";
+                            params = "{\"autoRenewing\":false,\"orderId\":\"202006231714212348205ba9f1.102164071\",\"packageName\":\"com.sdkboxv2.sample.huawei\",\"applicationId\":102164071,\"kind\":0,\"productId\":\"2\",\"productName\":\"10元宝\",\"purchaseTime\":1592921796000,\"purchaseTimeMillis\":1592921796000,\"purchaseState\":0,\"developerPayload\":\"test\",\"purchaseToken\":\"00000172e189b07b496ba512cbccfd7f28c03bac99018e984ac700fcac55591cd9da2631508eacbdx434e.1.102164071\",\"consumptionState\":0,\"confirmed\":0,\"purchaseType\":0,\"currency\":\"CNY\",\"price\":1,\"country\":\"CN\",\"payOrderId\":\"sandbox2020062310163668593BBDD\",\"payType\":\"4\"}";
                             this.fee.callFuncWithParam("consumeOwnedPurchase", params);
                             break;
                         case conf.INIT_METHOD + 4:
@@ -202,7 +204,7 @@ cc.Class({
                         case conf.INIT_METHOD + 6:
                             //startIapActivity
                             var params = {
-                            	"reqType" : "TYPE_SUBSCRIBE_MANAGER_ACTIVITY"
+                                "reqType": "TYPE_SUBSCRIBE_MANAGER_ACTIVITY"
                             };
                             this.fee.callFuncWithParam("startIapActivity", params);
                             break;
@@ -219,7 +221,7 @@ cc.Class({
                     switch (i) {
                         case conf.INIT_METHOD:
                             //showBannerAd
-                            var params = { "adType": "Banner", "adId": "testw6vs28auh3", "pos": "0", "adSize": "BANNER_SIZE_360_144"};
+                            var params = { "adType": "Banner", "adId": "testw6vs28auh3", "pos": "0", "adSize": "BANNER_SIZE_360_144" };
                             console.log("showBannerAd");
                             this.ads.showAds(params);
                             break;
@@ -291,7 +293,7 @@ cc.Class({
                         case conf.INIT_METHOD:
 
                             var params = {
-                                "type": 1
+                                "type": "getShowAchievementListIntent"
                             };
                             this.user.callFuncWithParam("showAchievements", params);
 
@@ -299,7 +301,8 @@ cc.Class({
                         case conf.INIT_METHOD + 1:
                             //getAchievementList
                             var params = {
-                                "type": 0
+                                "type": "getAchievementList",
+                                "forceReload" : "1"
                             };
                             this.user.callFuncWithParam("showAchievements", params);
                             break;
@@ -378,7 +381,8 @@ cc.Class({
                                 "type": "submitRankingScore",
                                 "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
                                 "score": "15000",
-                                "scoreTips": "分数"
+                                "scoreTips": "分数",
+                                "timeDimension": "1"
                             };
                             this.user.submitScore(params);
                             break;
