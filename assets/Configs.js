@@ -14,7 +14,7 @@ var obj = {
     showAchievements : ["showAchievements", "user", "return", "getShowAchievementListIntent", "getAchievementList"],
     unlockAchievement : ["unlockAchievement", "user", "return", "visualizeWithResult", "growWithResult", "makeStepsWithResult", "reachWithResult"],
     submitScore : ["submitScore", "user", "return", "getRankingSwitchStatus", "setRankingSwitchStatus", "submitRankingScore"],
-    showLeaderBoard : ["showLeaderBoard", "user", "return", "getRankingsIntent", "getRankingSummary"],
+    showLeaderBoard : ["showLeaderBoard", "user", "return", "getRankingsIntent", "getRankingSummary", "getCurrentPlayerRankingScore", "getPlayerCenteredRankingScores", "getMoreRankingScores", "getRankingTopScores"],
 };
 
 module.exports = obj;

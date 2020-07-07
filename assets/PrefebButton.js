@@ -147,12 +147,23 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //feeForProduct
                             var params = {
+                                //HMS 按商品 ID 配置支付所需参数
                                 "Product_Id": "com.sdkboxv2.sample.item3", // 商品ID, 必传
-                                "EXT": "test", //透传参数,必传
-                                
-                                "Product_Name": "10元宝", //
-                                "Product_Price": "1", //
-                                "Product_Count": "1", // 
+                                "EXT": "test", //透传参数，可为空
+
+                                //HMS 按价格支付所需参数
+                                "payType": "1", //0: 按价格支付 1: 按商品配置支付，默认为1，若传 0 则需要以下参数
+                                    //必传参数
+                                "Product_Name": "10元宝", //商品名称，必传
+                                "Product_Price": "0.02",  //商品价格，float 必传
+                                "Product_Count": "2",  //商品数量，int 必传，最终支付价格 = 商品价格 x 商品数量 取两位小数
+                                    //可选参数，不传则取默认值
+                                "priceType": "0", // 0: consumable; 1: non-consumable; 默认为 "0"
+                                "serviceCatalog": "X6", //游戏设置为"X6"，应用设置为"X5"，默认为 "X6"
+                                "currency": "CNY", //货币，默认 "CNY"
+                                "country": "CN", //国家或地区，默认 "CN"
+
+                                //其他支付可能所需参数
                                 "Product_Desc": "gold",
                                 "Coin_Name": "元宝",
                                 "Coin_Rate": "10",
@@ -164,12 +175,6 @@ cc.Class({
                                 "Party_Name": "test",
                                 "Server_Id": "1",
                                 "Server_Name": "test",
-
-                                "payType": 1, //0: 按价格支付 1: 按商品配置支付，默认为1
-                                "priceType": 0, //0: consumable; 1: non-consumable; 必传
-                                "serviceCatalog": "X6", //游戏设置为"X6"，应用设置为"X5"
-                                "currency": "CNY", //货币，默认 CNY
-                                "country": "CN" //国家或地区，默认 CN
                             }
                             this.fee.feeForProduct(params);
                             break;
@@ -302,7 +307,7 @@ cc.Class({
                             //getAchievementList
                             var params = {
                                 "type": "getAchievementList",
-                                "forceReload" : "1"
+                                "forceReload": "1"
                             };
                             this.user.callFuncWithParam("showAchievements", params);
                             break;
@@ -409,6 +414,51 @@ cc.Class({
                                 "type": "getRankingSummary",
                                 "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
                                 "isRealTime": "1"
+                            };
+                            this.user.showLeaderBoard(params);
+                            break;
+                        //"getMoreRankingScores", "getRankingTopScores"
+                        case conf.INIT_METHOD + 2:
+                            //getCurrentPlayerRankingScore
+                            var params = {
+                                "type": "getCurrentPlayerRankingScore",
+                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "timeDimension": "2"
+                            };
+                            this.user.showLeaderBoard(params);
+                            break;
+                        case conf.INIT_METHOD + 3:
+                            //getPlayerCenteredRankingScores
+                            var params = {
+                                "type": "getPlayerCenteredRankingScores",
+                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "timeDimension": "2",
+                                "maxResults" : "15",
+                                "isRealTime" : "1"
+                            };
+                            this.user.showLeaderBoard(params);
+                            break;
+                        case conf.INIT_METHOD + 4:
+                            //getMoreRankingScores
+                            var params = {
+                                "type": "getMoreRankingScores",
+                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "offsetPlayerRank": "1",
+                                "maxResults" : "15",
+                                "pageDirection": "0",
+                                "isRealTime": "1"
+                            };
+                            this.user.showLeaderBoard(params);
+                            break;
+                        case conf.INIT_METHOD + 5:
+                            //getRankingTopScores
+                            var params = {
+                                "type": "getRankingTopScores",
+                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "offsetPlayerRank": "1",
+                                "maxResults" : "15",
+                                "pageDirection": "0",
+                                "timeDimension": "2"
                             };
                             this.user.showLeaderBoard(params);
                             break;
