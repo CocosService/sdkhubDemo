@@ -1,4 +1,3 @@
-
 var conf = require('Configs');
 
 cc.Class({
@@ -13,8 +12,8 @@ cc.Class({
             default: null,
             type: cc.Button,
         },
-        parentname: null, // 上一个节点名称
-        currentname: null, // 当前节点名称
+        parentname: null,
+        currentname: null,
     },
 
     start() {
@@ -43,12 +42,15 @@ cc.Class({
             else if (this.lblButton.string == "Ads") {
                 this.btnScene.setButtons(conf.ads);
             }
+            else if (this.lblButton.string == "Push") {
+                this.btnScene.setButtons(conf.push);
+            }
             else if (this.lblButton.string == "Custom") {
                 this.btnScene.setButtons(conf.custom);
             }
             return;
         }
-        //处理三级菜单
+        //third menus
         else if (this.currentname == "user") {
             if (this.lblButton.string == "showAchievements") {
                 this.btnScene.setButtons(conf.showAchievements);
@@ -74,65 +76,65 @@ cc.Class({
                     switch (i) {
                         case conf.INIT_METHOD:
                             //login
-                            this.user.login();
+                            sdkhub.getUserPlugin().login();
                             break;
                         case conf.INIT_METHOD + 1:
                             //logout
-                            this.user.logout();
+                            sdkhub.getUserPlugin().logout();
                             break;
                         case conf.INIT_METHOD + 2:
                             //showToolBar
-                            this.user.showToolBar(1);
+                            sdkhub.getUserPlugin().showToolBar(1);
                             break;
                         case conf.INIT_METHOD + 3:
                             //hideToolBar
-                            this.user.hideToolBar();
+                            sdkhub.getUserPlugin().hideToolBar();
                             break;
                         case conf.INIT_METHOD + 4:
-                            //cancelAuthorization
-                            this.user.callFuncWithParam("cancelAuthorization");
-                            break;
-                        case conf.INIT_METHOD + 5:
                             //getUserInfo
-                            var userInfo = this.user.getUserInfo();
+                            var userInfo = sdkhub.getUserPlugin().getUserInfo();
                             console.log("userInfo", JSON.stringify(userInfo));
+                            break;
+
+                        // Extension method, call by `callFuncWithParam`.
+                        case conf.INIT_METHOD + 9:
+                            //cancelAuthorization
+                            sdkhub.getUserPlugin().callFuncWithParam("cancelAuthorization");
                             break;
                         case conf.INIT_METHOD + 10:
                             //submitEvent
                             var params = {
-                                "eventId": "A29DB82609936BE9DBB44CF7AFBBAECD5D2B7F14A05FB2B37EF543E7622F7B7F",
+                                "eventId": conf.eventId,
                                 "growAmount": "20"
                             };
-                            this.user.callFuncWithParam("submitEvent", params);
+                            sdkhub.getUserPlugin().callFuncWithParam("submitEvent", params);
                             break;
                         case conf.INIT_METHOD + 11:
                             //getEvent
-                            //eventIds
-                            //forceLoad
                             var params = {};
-                            this.user.callFuncWithParam("getEvent", params);
+                            sdkhub.getUserPlugin().callFuncWithParam("getEvent", params);
                             break;
                         case conf.INIT_METHOD + 12:
                             //submitPlayerEventStart
-                            this.user.callFuncWithParam("submitPlayerEventStart");
+                            sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventStart");
                             break;
                         case conf.INIT_METHOD + 13:
                             //getPlayerExtraInfo
-                            this.user.callFuncWithParam("getPlayerExtraInfo");
+                            sdkhub.getUserPlugin().callFuncWithParam("getPlayerExtraInfo");
                             break;
                         case conf.INIT_METHOD + 14:
                             //submitPlayerEventEnd
-                            this.user.callFuncWithParam("submitPlayerEventEnd");
+                            sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventEnd");
                             break;
                         case conf.INIT_METHOD + 15:
                             //getGamePlayerStats
                             var params = 0;
-                            this.user.callFuncWithParam("getGamePlayerStats", params);
+                            sdkhub.getUserPlugin().callFuncWithParam("getGamePlayerStats", params);
                             break;
                         case conf.INIT_METHOD + 16:
                             //getGameSummary
                             var params = 0;
-                            this.user.callFuncWithParam("getGameSummary", params);
+                            sdkhub.getUserPlugin().callFuncWithParam("getGameSummary", params);
                             break;
                         default:
                             console.log("user function: '" + this.lblButton.string + "' not called");
@@ -140,6 +142,7 @@ cc.Class({
                 }
             }
         }
+        // IAP System
         else if (this.currentname == "fee") {
             for (var i = conf.INIT_METHOD; i < conf.fee.length; i++) {
                 if (this.lblButton.string == conf.fee[i]) {
@@ -147,108 +150,93 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //feeForProduct
                             var params = {
-                                //HMS 按商品 ID 配置支付所需参数
-                                "Product_Id": "com.sdkboxv2.sample.item3", // 商品ID, 必传
-                                "EXT": "test", //透传参数，可为空
-
-                                //HMS 按价格支付所需参数
-                                "payType": "1", //0: 按价格支付 1: 按商品配置支付，默认为1，若传 0 则需要以下参数
-                                    //必传参数
-                                "Product_Name": "10元宝", //商品名称，必传
-                                "Product_Price": "0.02",  //商品价格，float 必传
-                                "Product_Count": "2",  //商品数量，int 必传，最终支付价格 = 商品价格 x 商品数量 取两位小数
-                                    //可选参数，不传则取默认值
-                                "priceType": "0", // 0: consumable; 1: non-consumable; 默认为 "0"
-                                "serviceCatalog": "X6", //游戏设置为"X6"，应用设置为"X5"，默认为 "X6"
-                                "currency": "CNY", //货币，默认 "CNY"
-                                "country": "CN", //国家或地区，默认 "CN"
-
-                                //其他支付可能所需参数
-                                "Product_Desc": "gold",
-                                "Coin_Name": "元宝",
-                                "Coin_Rate": "10",
-                                "Role_Id": "123456",
-                                "Role_Name": "test",
-                                "Role_Grade": "1",
-                                "Role_Balance": "1",
-                                "Vip_Level": "1",
-                                "Party_Name": "test",
-                                "Server_Id": "1",
-                                "Server_Name": "test",
+                                "Product_Id": conf.payProuctId, // Product ID. Each product must have a unique ID
+                                "EXT": "test", //Information stored on the merchant side, which is passed by the app when the payment API is called
                             }
-                            this.fee.feeForProduct(params);
+                            sdkhub.getFeePlugin().feeForProduct(params);
                             break;
+
+                        // Extension method, call by `callFuncWithParam`.
                         case conf.INIT_METHOD + 1:
                             //isEnvReady
-                            this.fee.callFuncWithParam("isEnvReady");
+                            sdkhub.getFeePlugin().callFuncWithParam("isEnvReady");
                             break;
                         case conf.INIT_METHOD + 2:
                             //obtainProductInfo
                             var params = {
-                                "productIdList": "com.sdkboxv2.sample.huawei.item1,com.sdkboxv2.sample.item3",
+                                "productIdList": conf.obtainProductIdList,
                                 "priceType": 0
                             };
-                            this.fee.callFuncWithParam("obtainProductInfo", params);
+                            sdkhub.getFeePlugin().callFuncWithParam("obtainProductInfo", params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //consumeOwnedPurchase
-                            console.log("consumeOwnedPurchase, called after feeForProduct")
-                            params = "{\"autoRenewing\":false,\"orderId\":\"202006231714212348205ba9f1.102164071\",\"packageName\":\"com.sdkboxv2.sample.huawei\",\"applicationId\":102164071,\"kind\":0,\"productId\":\"2\",\"productName\":\"10元宝\",\"purchaseTime\":1592921796000,\"purchaseTimeMillis\":1592921796000,\"purchaseState\":0,\"developerPayload\":\"test\",\"purchaseToken\":\"00000172e189b07b496ba512cbccfd7f28c03bac99018e984ac700fcac55591cd9da2631508eacbdx434e.1.102164071\",\"consumptionState\":0,\"confirmed\":0,\"purchaseType\":0,\"currency\":\"CNY\",\"price\":1,\"country\":\"CN\",\"payOrderId\":\"sandbox2020062310163668593BBDD\",\"payType\":\"4\"}";
-                            this.fee.callFuncWithParam("consumeOwnedPurchase", params);
+                            if (!conf.paymentReceipt.length) {
+                                console.log("consumeOwnedPurchase, paymentReceipt is null now, call function 'obtainOwnedPurchases' and try again.");
+                                return;
+                            }
+                            console.log("receipt", conf.paymentReceipt);
+                            //Please check if purchaseState == 0
+                            // -1: initialized, 0: purchased, 1: canceled, 2: refunded
+                            console.log("receipt[0].purchaseState = ", conf.paymentReceipt[0]["purchaseState"]);
+                            params = conf.paymentReceipt[0]["inAppPurchaseData"];
+                            conf.paymentReceipt.splice(0);
+                            console.log("consumeOwnedPurchase, param = ", params)
+                            sdkhub.getFeePlugin().callFuncWithParam("consumeOwnedPurchase", params);
                             break;
                         case conf.INIT_METHOD + 4:
                             //obtainOwnedPurchases
                             var params = 0;
-                            this.fee.callFuncWithParam("obtainOwnedPurchases", params);
+                            sdkhub.getFeePlugin().callFuncWithParam("obtainOwnedPurchases", params);
                             break;
                         case conf.INIT_METHOD + 5:
                             //obtainOwnedPurchaseRecord
                             var params = 0;
-                            this.fee.callFuncWithParam("obtainOwnedPurchaseRecord", params);
+                            sdkhub.getFeePlugin().callFuncWithParam("obtainOwnedPurchaseRecord", params);
                             break;
                         case conf.INIT_METHOD + 6:
                             //startIapActivity
                             var params = {
                                 "reqType": "TYPE_SUBSCRIBE_MANAGER_ACTIVITY"
                             };
-                            this.fee.callFuncWithParam("startIapActivity", params);
+                            sdkhub.getFeePlugin().callFuncWithParam("startIapActivity", params);
                             break;
-
                         default:
                             console.log("fee function: '" + this.lblButton.string + "' not called");
                     }
                 }
             }
         }
+        // Ads System
         else if (this.currentname == "ads") {
             for (var i = conf.INIT_METHOD; i < conf.ads.length; i++) {
                 if (this.lblButton.string == conf.ads[i]) {
                     switch (i) {
                         case conf.INIT_METHOD:
                             //showBannerAd
-                            var params = { "adType": "Banner", "adId": "testw6vs28auh3", "pos": "0", "adSize": "BANNER_SIZE_360_144" };
                             console.log("showBannerAd");
-                            this.ads.showAds(params);
+                            var params = { "adType": "Banner", "adId": "testw6vs28auh3", "pos": "0", "adSize": "BANNER_SIZE_360_144" };
+                            sdkhub.getAdsPlugin().showAds(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //preloadRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
-                            this.ads.preloadAds(params);
+                            sdkhub.getAdsPlugin().preloadAds(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //showRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
-                            this.ads.showAds(params);
+                            sdkhub.getAdsPlugin().showAds(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //preloadInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
-                            this.ads.preloadAds(params);
+                            sdkhub.getAdsPlugin().preloadAds(params);
                             break;
                         case conf.INIT_METHOD + 4:
                             //showInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
-                            this.ads.showAds(params);
+                            sdkhub.getAdsPlugin().showAds(params);
                             break;
                         default:
                             console.log("ads function: '" + this.lblButton.string + "' not called");
@@ -256,37 +244,66 @@ cc.Class({
                 }
             }
         }
-        else if (this.currentname == "custom") {
-            for (var i = conf.INIT_METHOD; i < conf.custom.length; i++) {
-                if (this.lblButton.string == conf.custom[i]) {
+        // Push System
+        else if (this.currentname == "push") {
+            for (var i = conf.INIT_METHOD; i < conf.push.length; i++) {
+                if (this.lblButton.string == conf.push[i]) {
                     switch (i) {
                         case conf.INIT_METHOD:
-                            //custom1
+                            //startPush
+                            sdkhub.getPushPlugin().startPush();
                             break;
                         case conf.INIT_METHOD + 1:
-                            //custom2
+                            //closePush
+                            sdkhub.getPushPlugin().closePush();
                             break;
                         case conf.INIT_METHOD + 2:
-                            //custom3
+                            //setAlias
+                            var params = "alias1";
+                            sdkhub.getPushPlugin().setAlias(params);
                             break;
                         case conf.INIT_METHOD + 3:
-                            //custom4
+                            //delAlias
+                            var params = "alias1";
+                            sdkhub.getPushPlugin().delAlias(params);
                             break;
                         case conf.INIT_METHOD + 4:
-                            //custom5
+                            //setTags
+                            var params = ["tag1", "tag2"];
+                            sdkhub.getPushPlugin().setTags(params)
                             break;
                         case conf.INIT_METHOD + 5:
-                            //custom6
+                            //delTags
+                            var params = ["tag1", "tag2"];
+                            sdkhub.getPushPlugin().delTags(params)
                             break;
+
+                        // Extension method, call by `callFuncWithParam`.
                         case conf.INIT_METHOD + 6:
-                            //custom7
+                            //turnOnPush
+                            sdkhub.getPushPlugin().callFuncWithParam("turnOnPush");
                             break;
                         case conf.INIT_METHOD + 7:
-                            //custom8
-                            console.log("custom8 invoked");
+                            //turnOnPush
+                            sdkhub.getPushPlugin().callFuncWithParam("turnOffPush");
+                            break;
+                        case conf.INIT_METHOD + 8:
+                            //sendMessage
+                            var params = {
+                                "messageId": "messageId" + Math.ceil(Math.random() * 100000),
+                                "messageType": "mType1",
+                                "collapseKey": "0",
+                                "sendMode": "1",
+                                "receiptMode": "1",
+                                "ttl": "10000",
+                                "key1": "value1",
+                                "key2": "value2",
+                                "key3": "value3"
+                            }
+                            sdkhub.getPushPlugin().callFuncWithParam("sendMessage", params);
                             break;
                         default:
-                            console.log("custom function: '" + this.lblButton.string + "' not called");
+                            console.log("push function: '" + this.lblButton.string + "' not called");
                     }
                 }
             }
@@ -296,12 +313,10 @@ cc.Class({
                 if (this.lblButton.string == conf.showAchievements[i]) {
                     switch (i) {
                         case conf.INIT_METHOD:
-
                             var params = {
                                 "type": "getShowAchievementListIntent"
                             };
-                            this.user.callFuncWithParam("showAchievements", params);
-
+                            sdkhub.getUserPlugin().showAchievements(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //getAchievementList
@@ -309,7 +324,7 @@ cc.Class({
                                 "type": "getAchievementList",
                                 "forceReload": "1"
                             };
-                            this.user.callFuncWithParam("showAchievements", params);
+                            sdkhub.getUserPlugin().showAchievements(params);
                             break;
                         default:
                             console.log("showAchievements function: '" + this.lblButton.string + "' not called");
@@ -325,35 +340,34 @@ cc.Class({
                             //visualizeWithResult
                             var params = {
                                 "type": "visualizeWithResult",
-                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
-                            };
-                            this.user.unlockAchievement(params);
+                                "achievementId": conf.achievementId                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //growWithResult
                             var params = {
                                 "type": "growWithResult",
-                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
+                                "achievementId": conf.achievementId,
                                 "stepsNum": "3"
                             };
-                            this.user.unlockAchievement(params);
+                            sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //makeStepsWithResult
                             var params = {
                                 "type": "makeStepsWithResult",
-                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444",
+                                "achievementId": conf.achievementId,
                                 "stepsNum": "3"
                             };
-                            this.user.unlockAchievement(params);
+                            sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //reachWithResult
                             var params = {
                                 "type": "reachWithResult",
-                                "achievementId": "5D9580837D32CB59CFEC89DAD39470CDF9B672033A2D6F14689BC01335818444"
+                                "achievementId": conf.achievementId
                             };
-                            this.user.unlockAchievement(params);
+                            sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
                         default:
                             console.log("unlockAchievement function: '" + this.lblButton.string + "' not called");
@@ -370,7 +384,7 @@ cc.Class({
                             var params = {
                                 "type": "getRankingSwitchStatus",
                             };
-                            this.user.submitScore(params);
+                            sdkhub.getUserPlugin().submitScore(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //setRankingSwitchStatus
@@ -378,18 +392,18 @@ cc.Class({
                                 "type": "setRankingSwitchStatus",
                                 "stateValue": 1
                             };
-                            this.user.submitScore(params);
+                            sdkhub.getUserPlugin().submitScore(params);
                             break;
                         case conf.INIT_METHOD + 2:
                             //submitRankingScore
                             var params = {
                                 "type": "submitRankingScore",
-                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "rankingId": conf.rankingId,
                                 "score": "15000",
                                 "scoreTips": "分数",
                                 "timeDimension": "1"
                             };
-                            this.user.submitScore(params);
+                            sdkhub.getUserPlugin().submitScore(params);
                             break;
                         default:
                             console.log("submitScore function: '" + this.lblButton.string + "' not called");
@@ -406,61 +420,61 @@ cc.Class({
                             var params = {
                                 "type": "getRankingsIntent",
                             };
-                            this.user.showLeaderBoard(params);
+                            sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 1:
                             //getRankingSummary
                             var params = {
                                 "type": "getRankingSummary",
-                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "rankingId": conf.rankingId,
                                 "isRealTime": "1"
                             };
-                            this.user.showLeaderBoard(params);
+                            sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
                         //"getMoreRankingScores", "getRankingTopScores"
                         case conf.INIT_METHOD + 2:
                             //getCurrentPlayerRankingScore
                             var params = {
                                 "type": "getCurrentPlayerRankingScore",
-                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "rankingId": conf.rankingId,
                                 "timeDimension": "2"
                             };
-                            this.user.showLeaderBoard(params);
+                            sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 3:
                             //getPlayerCenteredRankingScores
                             var params = {
                                 "type": "getPlayerCenteredRankingScores",
-                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "rankingId": conf.rankingId,
                                 "timeDimension": "2",
-                                "maxResults" : "15",
-                                "isRealTime" : "1"
+                                "maxResults": "15",
+                                "isRealTime": "1"
                             };
-                            this.user.showLeaderBoard(params);
+                            sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 4:
                             //getMoreRankingScores
                             var params = {
                                 "type": "getMoreRankingScores",
-                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "rankingId": conf.rankingId,
                                 "offsetPlayerRank": "1",
-                                "maxResults" : "15",
+                                "maxResults": "15",
                                 "pageDirection": "0",
                                 "isRealTime": "1"
                             };
-                            this.user.showLeaderBoard(params);
+                            sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
                         case conf.INIT_METHOD + 5:
                             //getRankingTopScores
                             var params = {
                                 "type": "getRankingTopScores",
-                                "rankingId": "2008EE56BB773FA325FFB1349D0D206A8B0EC3E9E2F0D32E786E574ADD10E7A1",
+                                "rankingId": conf.rankingId,
                                 "offsetPlayerRank": "1",
-                                "maxResults" : "15",
+                                "maxResults": "15",
                                 "pageDirection": "0",
                                 "timeDimension": "2"
                             };
-                            this.user.showLeaderBoard(params);
+                            sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
                         default:
                             console.log("showLeaderBoard function: '" + this.lblButton.string + "' not called");
@@ -470,15 +484,10 @@ cc.Class({
         }
     },
 
-    setContent(current, parent, name, topconfig, user, fee, ads) {
+    setContent(current, parent, name, topconfig) {
         this.parentname = parent;
         this.currentname = current;
         this.lblButton.string = name;
         this.topConfig = topconfig;
-        this.user = user;
-        this.fee = fee;
-        this.ads = ads;
     }
-
-    // update (dt) {},
 });
