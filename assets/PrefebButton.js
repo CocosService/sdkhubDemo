@@ -75,33 +75,64 @@ cc.Class({
                 if (this.lblButton.string == conf.user[i]) {
                     switch (i) {
                         case conf.INIT_METHOD:
+                            //init
+                            sdkhub.getUserPlugin().callFuncWithParam("init");
+                            break;
+                        case conf.INIT_METHOD + 1:
+                            //checkAppUpdate
+                            var params = {
+                                "showUpdateDialog": "1",
+                                "forceUpdate": "1" 
+                            }
+                            sdkhub.getUserPlugin().callFuncWithParam("checkAppUpdate", params);
+                            break;
+                        case conf.INIT_METHOD + 2:
                             //login
                             sdkhub.getUserPlugin().login();
                             break;
-                        case conf.INIT_METHOD + 1:
+                        case conf.INIT_METHOD + 3:
+                            //loginWithAuthorizationCode
+                            var params = "AuthorizationCode";
+                            sdkhub.getUserPlugin().callFuncWithParam("accountLogin", params);
+                            break;
+                        case conf.INIT_METHOD + 4:
+                            //loginWithIDToken
+                            var params = "IDToken";
+                            sdkhub.getUserPlugin().callFuncWithParam("accountLogin", params);
+                            break;
+                        case conf.INIT_METHOD + 5:
+                            //loginWithIDToken
+                            var params = "Slient";
+                            sdkhub.getUserPlugin().callFuncWithParam("accountLogin", params);
+                            break;
+                        case conf.INIT_METHOD + 6:
+                            //getCurrentPlayer
+                            sdkhub.getUserPlugin().callFuncWithParam("getCurrentPlayer");
+                            break;
+                        case conf.INIT_METHOD + 7:
                             //logout
                             sdkhub.getUserPlugin().logout();
                             break;
-                        case conf.INIT_METHOD + 2:
+                        case conf.INIT_METHOD + 8:
                             //showToolBar
                             sdkhub.getUserPlugin().showToolBar(1);
                             break;
-                        case conf.INIT_METHOD + 3:
+                        case conf.INIT_METHOD + 9:
                             //hideToolBar
                             sdkhub.getUserPlugin().hideToolBar();
                             break;
-                        case conf.INIT_METHOD + 4:
+                        case conf.INIT_METHOD + 10:
                             //getUserInfo
                             var userInfo = sdkhub.getUserPlugin().getUserInfo();
                             console.log("userInfo", JSON.stringify(userInfo));
                             break;
 
                         // Extension method, call by `callFuncWithParam`.
-                        case conf.INIT_METHOD + 9:
+                        case conf.INIT_METHOD + 15:
                             //cancelAuthorization
                             sdkhub.getUserPlugin().callFuncWithParam("cancelAuthorization");
                             break;
-                        case conf.INIT_METHOD + 10:
+                        case conf.INIT_METHOD + 16:
                             //submitEvent
                             var params = {
                                 "eventId": conf.eventId,
@@ -109,32 +140,45 @@ cc.Class({
                             };
                             sdkhub.getUserPlugin().callFuncWithParam("submitEvent", params);
                             break;
-                        case conf.INIT_METHOD + 11:
+                        case conf.INIT_METHOD + 17:
                             //getEvent
                             var params = {};
                             sdkhub.getUserPlugin().callFuncWithParam("getEvent", params);
                             break;
-                        case conf.INIT_METHOD + 12:
+                        case conf.INIT_METHOD + 18:
                             //submitPlayerEventStart
                             sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventStart");
                             break;
-                        case conf.INIT_METHOD + 13:
+                        case conf.INIT_METHOD + 19:
                             //getPlayerExtraInfo
                             sdkhub.getUserPlugin().callFuncWithParam("getPlayerExtraInfo");
                             break;
-                        case conf.INIT_METHOD + 14:
+                        case conf.INIT_METHOD + 20:
                             //submitPlayerEventEnd
                             sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventEnd");
                             break;
-                        case conf.INIT_METHOD + 15:
+                        case conf.INIT_METHOD + 21:
                             //getGamePlayerStats
                             var params = 0;
                             sdkhub.getUserPlugin().callFuncWithParam("getGamePlayerStats", params);
                             break;
-                        case conf.INIT_METHOD + 16:
+                        case conf.INIT_METHOD + 22:
                             //getGameSummary
                             var params = 0;
                             sdkhub.getUserPlugin().callFuncWithParam("getGameSummary", params);
+                            break;
+                        case conf.INIT_METHOD + 23:
+                            //setPopupsPosition
+                            var params = 1;
+                            sdkhub.getUserPlugin().callFuncWithParam("setPopupsPosition", params);
+                            break;
+                        case conf.INIT_METHOD + 24:
+                            //getAppId
+                            sdkhub.getUserPlugin().callFuncWithParam("getAppId");
+                            break;
+                        case conf.INIT_METHOD + 25:
+                            //cancelGameService
+                            sdkhub.getUserPlugin().callFuncWithParam("cancelGameService");
                             break;
                         default:
                             console.log("user function: '" + this.lblButton.string + "' not called");
@@ -150,7 +194,7 @@ cc.Class({
                         case conf.INIT_METHOD:
                             //feeForProduct
                             var params = {
-                                "Product_Id": conf.payProuctId, // Product ID. Each product must have a unique ID
+                                "Product_Id": conf.payProductId, // Product ID. Each product must have a unique ID
                                 "EXT": "test", //Information stored on the merchant side, which is passed by the app when the payment API is called
                             }
                             sdkhub.getFeePlugin().feeForProduct(params);
@@ -219,24 +263,42 @@ cc.Class({
                             sdkhub.getAdsPlugin().showAds(params);
                             break;
                         case conf.INIT_METHOD + 1:
+                            //hideBannerAd
+                            console.log("hideBannerAd");
+                            var params = { "adType": "Banner" };
+                            sdkhub.getAdsPlugin().hideAds(params);
+                            break;
+                        case conf.INIT_METHOD + 2:
                             //preloadRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
                             sdkhub.getAdsPlugin().preloadAds(params);
                             break;
-                        case conf.INIT_METHOD + 2:
+                        case conf.INIT_METHOD + 3:
                             //showRewardAd
                             var params = { "adType": "Reward", "adId": "testx9dtjwj8hp" };
                             sdkhub.getAdsPlugin().showAds(params);
                             break;
-                        case conf.INIT_METHOD + 3:
+                        case conf.INIT_METHOD + 4:
                             //preloadInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
                             sdkhub.getAdsPlugin().preloadAds(params);
                             break;
-                        case conf.INIT_METHOD + 4:
+                        case conf.INIT_METHOD + 5:
                             //showInterstitialAd
                             var params = { "adType": "Interstitial", "adId": "testb4znbuh3n2" };
                             sdkhub.getAdsPlugin().showAds(params);
+                            break;
+                        case conf.INIT_METHOD + 6:
+                            //showNativeAd
+                            console.log("showNativeAd");
+                            var params = { "adType": "Native", "adId": "testy63txaom86", "nativeLayout": "native_small", "requestCustomDislikeThisAd": "1", "choicesPosition": "3", "videoConfiguration" : "1", "audioFocusType" : "NOT_GAIN_AUDIO_FOCUS_WHEN_MUTE", "startMuted" : "0", "customizeOperateRequested" : "1"};
+                            sdkhub.getAdsPlugin().showAds(params);
+                            break;
+                        case conf.INIT_METHOD + 7:
+                            //showNativeAd
+                            console.log("hideNativeAd");
+                            var params = { "adType": "Native" };
+                            sdkhub.getAdsPlugin().hideAds(params);
                             break;
                         default:
                             console.log("ads function: '" + this.lblButton.string + "' not called");
@@ -301,6 +363,29 @@ cc.Class({
                                 "key3": "value3"
                             }
                             sdkhub.getPushPlugin().callFuncWithParam("sendMessage", params);
+                            break;
+  
+                        case conf.INIT_METHOD + 9:
+                            //getOdid
+                            sdkhub.getPushPlugin().callFuncWithParam("getOdid");
+                            break;
+                        case conf.INIT_METHOD + 10:
+                            //getAAID
+                            sdkhub.getPushPlugin().callFuncWithParam("getAAID");
+                            break;
+                        case conf.INIT_METHOD + 11:
+                            //deleteAAID
+                            sdkhub.getPushPlugin().callFuncWithParam("deleteAAID");
+                            break;
+                        case conf.INIT_METHOD + 12:
+                            //isAutoInitEnabled
+                            console.log("isAutoInitEnable, ret = ", sdkhub.getPushPlugin().callBoolFuncWithParam("isAutoInitEnabled"));
+                            break;
+                        case conf.INIT_METHOD + 13:
+                            //setAutoInitEnabled
+                            var params = 1 - sdkhub.getPushPlugin().callBoolFuncWithParam("isAutoInitEnabled");
+                            console.log("param = ", params);
+                            sdkhub.getPushPlugin().callFuncWithParam("setAutoInitEnabled", params);
                             break;
                         default:
                             console.log("push function: '" + this.lblButton.string + "' not called");
@@ -478,6 +563,50 @@ cc.Class({
                             break;
                         default:
                             console.log("showLeaderBoard function: '" + this.lblButton.string + "' not called");
+                    }
+                }
+            }
+        }
+        else if (this.currentname == "unlockAchievement") {
+            for (var i = conf.INIT_METHOD; i < conf.unlockAchievement.length; i++) {
+                if (this.lblButton.string == conf.unlockAchievement[i]) {
+                    switch (i) {
+                        case conf.INIT_METHOD:
+                            //visualizeWithResult
+                            var params = {
+                                "type": "visualizeWithResult",
+                                "achievementId": "AFA15504BF6E5B21FB1B43F8EE66426B087C5C48FF4D7CF6224A2BA0AA244537"
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 1:
+                            //growWithResult
+                            var params = {
+                                "type": "growWithResult",
+                                "achievementId": conf.achievementId,
+                                "stepsNum": "3"
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 2:
+                            //makeStepsWithResult
+                            var params = {
+                                "type": "makeStepsWithResult",
+                                "achievementId": conf.achievementId,
+                                "stepsNum": "3"
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 3:
+                            //reachWithResult
+                            var params = {
+                                "type": "reachWithResult",
+                                "achievementId": conf.achievementId
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        default:
+                            console.log("unlockAchievement function: '" + this.lblButton.string + "' not called");
                     }
                 }
             }

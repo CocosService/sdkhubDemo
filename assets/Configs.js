@@ -1,6 +1,6 @@
 var obj = {
     // Configuring In-App Purchases in the HMS console.
-    payProuctId : "", 
+    payProductId : "", 
     // Product ID list for method `obtainProductInfo`, split by ',' .
     obtainProductIdList : "", 
     // Configuring Achievements in HMS console.
@@ -15,10 +15,10 @@ var obj = {
     top : ["top", ""],
 
     //second menu
-    user : ["user", "top", "return", "login", "logout", "showToolBar", "hideToolBar", "getUserInfo", "showAchievements", "unlockAchievement", "submitScore", "showLeaderBoard", "cancelAuthorization", "submitEvent", "getEvent", "submitPlayerEventStart", "getPlayerExtraInfo", "submitPlayerEventEnd", "getGamePlayerStats", "getGameSummary"],
+    user : ["user", "top", "return", "init", "checkAppUpdate", "login",  "loginWithAuthorizationCode", "loginWithIDToken", "slientLogin", "getCurrentPlayer", "logout", "showToolBar", "hideToolBar", "getUserInfo", "showAchievements", "unlockAchievement", "submitScore", "showLeaderBoard", "cancelAuthorization", "submitEvent", "getEvent", "submitPlayerEventStart", "getPlayerExtraInfo", "submitPlayerEventEnd", "getGamePlayerStats", "getGameSummary", "setPopupsPosition", "getAppId", "cancelGameService"],
     fee : ["fee", "top", "return", "payForProduct", "isEnvReady", "obtainProductInfo", "consumeOwnedPurchase", "obtainOwnedPurchases", "obtainOwnedPurchaseRecord", "startIapActivity"],
-    ads : ["ads", "top", "return", "showBannerAd", "preloadRewardAd", "showRewardAd", "preloadInterstitialAd", "showInterstitialAd"],
-    push : ["push", "top", "return", "startPush", "closePush", "setAlias", "delAlias", "setTag", "delTag", "turnOnPush", "turnOffPush", "sendMessage"],
+    ads : ["ads", "top", "return", "showBannerAd", "hideBannerAd", "preloadRewardAd", "showRewardAd", "preloadInterstitialAd", "showInterstitialAd", "showNativeAd", "hideNativeAd"],
+    push : ["push", "top", "return", "startPush", "closePush", "setAlias", "delAlias", "setTag", "delTag", "turnOnPush", "turnOffPush", "sendMessage", "getOdid", "getAAID", "deleteAAID", "isAutoInitEnabled", "setAutoInitEnabled"],
     custom : ["custom", "top", "return", "custom1", "custom2", "custom3", "custom4", "custom 5", "custom6", "custom7", "custom8"],
 
     //third menu
