@@ -68,6 +68,10 @@ cc.Class({
                 this.btnScene.setButtons(conf.showLeaderBoard);
                 return;
             }
+            else if (this.lblButton.string == "archive") {
+                this.btnScene.setButtons(conf.archive);
+                return;
+            }
         }
         // User System
         if (this.currentname == "user") {
@@ -128,11 +132,11 @@ cc.Class({
                             break;
 
                         // Extension method, call by `callFuncWithParam`.
-                        case conf.INIT_METHOD + 15:
+                        case conf.INIT_METHOD + 16:
                             //cancelAuthorization
                             sdkhub.getUserPlugin().callFuncWithParam("cancelAuthorization");
                             break;
-                        case conf.INIT_METHOD + 16:
+                        case conf.INIT_METHOD + 17:
                             //submitEvent
                             var params = {
                                 "eventId": conf.eventId,
@@ -140,43 +144,43 @@ cc.Class({
                             };
                             sdkhub.getUserPlugin().callFuncWithParam("submitEvent", params);
                             break;
-                        case conf.INIT_METHOD + 17:
+                        case conf.INIT_METHOD + 18:
                             //getEvent
                             var params = {};
                             sdkhub.getUserPlugin().callFuncWithParam("getEvent", params);
                             break;
-                        case conf.INIT_METHOD + 18:
+                        case conf.INIT_METHOD + 19:
                             //submitPlayerEventStart
                             sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventStart");
                             break;
-                        case conf.INIT_METHOD + 19:
+                        case conf.INIT_METHOD + 20:
                             //getPlayerExtraInfo
                             sdkhub.getUserPlugin().callFuncWithParam("getPlayerExtraInfo");
                             break;
-                        case conf.INIT_METHOD + 20:
+                        case conf.INIT_METHOD + 21:
                             //submitPlayerEventEnd
                             sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventEnd");
                             break;
-                        case conf.INIT_METHOD + 21:
+                        case conf.INIT_METHOD + 22:
                             //getGamePlayerStats
                             var params = 0;
                             sdkhub.getUserPlugin().callFuncWithParam("getGamePlayerStats", params);
                             break;
-                        case conf.INIT_METHOD + 22:
+                        case conf.INIT_METHOD + 23:
                             //getGameSummary
                             var params = 0;
                             sdkhub.getUserPlugin().callFuncWithParam("getGameSummary", params);
                             break;
-                        case conf.INIT_METHOD + 23:
+                        case conf.INIT_METHOD + 24:
                             //setPopupsPosition
                             var params = 1;
                             sdkhub.getUserPlugin().callFuncWithParam("setPopupsPosition", params);
                             break;
-                        case conf.INIT_METHOD + 24:
+                        case conf.INIT_METHOD + 25:
                             //getAppId
                             sdkhub.getUserPlugin().callFuncWithParam("getAppId");
                             break;
-                        case conf.INIT_METHOD + 25:
+                        case conf.INIT_METHOD + 26:
                             //cancelGameService
                             sdkhub.getUserPlugin().callFuncWithParam("cancelGameService");
                             break;
@@ -417,49 +421,6 @@ cc.Class({
                 }
             }
         }
-        else if (this.currentname == "unlockAchievement") {
-            for (var i = conf.INIT_METHOD; i < conf.unlockAchievement.length; i++) {
-                if (this.lblButton.string == conf.unlockAchievement[i]) {
-                    switch (i) {
-                        case conf.INIT_METHOD:
-                            //visualizeWithResult
-                            var params = {
-                                "type": "visualizeWithResult",
-                                "achievementId": conf.achievementId                            };
-                            sdkhub.getUserPlugin().unlockAchievement(params);
-                            break;
-                        case conf.INIT_METHOD + 1:
-                            //growWithResult
-                            var params = {
-                                "type": "growWithResult",
-                                "achievementId": conf.achievementId,
-                                "stepsNum": "3"
-                            };
-                            sdkhub.getUserPlugin().unlockAchievement(params);
-                            break;
-                        case conf.INIT_METHOD + 2:
-                            //makeStepsWithResult
-                            var params = {
-                                "type": "makeStepsWithResult",
-                                "achievementId": conf.achievementId,
-                                "stepsNum": "3"
-                            };
-                            sdkhub.getUserPlugin().unlockAchievement(params);
-                            break;
-                        case conf.INIT_METHOD + 3:
-                            //reachWithResult
-                            var params = {
-                                "type": "reachWithResult",
-                                "achievementId": conf.achievementId
-                            };
-                            sdkhub.getUserPlugin().unlockAchievement(params);
-                            break;
-                        default:
-                            console.log("unlockAchievement function: '" + this.lblButton.string + "' not called");
-                    }
-                }
-            }
-        }
         else if (this.currentname == "submitScore") {
             for (var i = conf.INIT_METHOD; i < conf.submitScore.length; i++) {
                 if (this.lblButton.string == conf.submitScore[i]) {
@@ -485,6 +446,16 @@ cc.Class({
                                 "type": "submitRankingScore",
                                 "rankingId": conf.rankingId,
                                 "score": "15000",
+                                "scoreTips": "分数",
+                            };
+                            sdkhub.getUserPlugin().submitScore(params);
+                            break;
+                        case conf.INIT_METHOD + 3:
+                            //submitScoreWithResult
+                            var params = {
+                                "type": "submitScoreWithResult",
+                                "rankingId": conf.rankingId,
+                                "score": "18000",
                                 "scoreTips": "分数",
                                 "timeDimension": "1"
                             };
@@ -516,7 +487,6 @@ cc.Class({
                             };
                             sdkhub.getUserPlugin().showLeaderBoard(params);
                             break;
-                        //"getMoreRankingScores", "getRankingTopScores"
                         case conf.INIT_METHOD + 2:
                             //getCurrentPlayerRankingScore
                             var params = {
@@ -571,7 +541,15 @@ cc.Class({
             for (var i = conf.INIT_METHOD; i < conf.unlockAchievement.length; i++) {
                 if (this.lblButton.string == conf.unlockAchievement[i]) {
                     switch (i) {
-                        case conf.INIT_METHOD:
+                        case conf.INIT_METHOD :
+                            //visualize
+                            var params = {
+                                "type": "visualize",
+                                "achievementId": "AFA15504BF6E5B21FB1B43F8EE66426B087C5C48FF4D7CF6224A2BA0AA244537"
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 1:
                             //visualizeWithResult
                             var params = {
                                 "type": "visualizeWithResult",
@@ -579,7 +557,16 @@ cc.Class({
                             };
                             sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
-                        case conf.INIT_METHOD + 1:
+                        case conf.INIT_METHOD + 2:
+                            //grow
+                            var params = {
+                                "type": "grow",
+                                "achievementId": conf.achievementId,
+                                "stepsNum": "3"
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 3:
                             //growWithResult
                             var params = {
                                 "type": "growWithResult",
@@ -588,7 +575,16 @@ cc.Class({
                             };
                             sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
-                        case conf.INIT_METHOD + 2:
+                        case conf.INIT_METHOD + 4:
+                            //makeSteps
+                            var params = {
+                                "type": "makeSteps",
+                                "achievementId": conf.achievementId,
+                                "stepsNum": "3"
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 5:
                             //makeStepsWithResult
                             var params = {
                                 "type": "makeStepsWithResult",
@@ -597,7 +593,15 @@ cc.Class({
                             };
                             sdkhub.getUserPlugin().unlockAchievement(params);
                             break;
-                        case conf.INIT_METHOD + 3:
+                        case conf.INIT_METHOD + 6:
+                            //reach
+                            var params = {
+                                "type": "reach",
+                                "achievementId": conf.achievementId
+                            };
+                            sdkhub.getUserPlugin().unlockAchievement(params);
+                            break;
+                        case conf.INIT_METHOD + 7:
                             //reachWithResult
                             var params = {
                                 "type": "reachWithResult",
@@ -611,6 +615,103 @@ cc.Class({
                 }
             }
         }
+        else if (this.currentname == "archive") {
+            for (var i = conf.INIT_METHOD; i < conf.archive.length; i++) {
+                if (this.lblButton.string == conf.archive[i]) {
+                    switch (i) {
+                        case conf.INIT_METHOD:
+                            //setScopeList
+                            console.log("Please call the method before login.");
+                            var params = {
+                                "type": "setScopeList",
+                            }
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 1:
+                            //addArchive
+                            var params = {
+                                "type": "addArchive",
+                                "activeTime": "5000",
+                                "currentProgress": "50",
+                                "archiveDetails": "time = 5000, progress = 50",
+                                "descInfo": "savedata" + Math.ceil(Math.random() * 100),
+                                "thumbnail": "archiveIcon.png",
+                                "thumbnailMimeType": "png",
+                                "isSupportCache" : "1", 
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 2:
+                            //removeArchive
+                            var params = {
+                                "type": "removeArchive",
+                                "archiveId": "AA14I0V4G_gChJWeU_H2RRQalZZT5hvwA",
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 3:
+                            //getLimitThumbnailSize
+                            var params = {
+                                "type": "getLimitThumbnailSize",
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 4:
+                            //getLimitDetailsSize
+                            var params = {
+                                "type": "getLimitDetailsSize",
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 5:
+                            //getShowArchiveListIntent
+                            var params = {
+                                "type": "getShowArchiveListIntent",
+                                "title": "Savedata",
+                                "allowAddBtn": "1",    //optional, default = "0"
+                                "allowDeleteBtn": "1", //optional, default = "0"
+                                "maxArchive": "5", //optional, default = "-1"
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 6:
+                            //getArchiveSummaryList
+                            var params = {
+                                "type": "getArchiveSummaryList",
+                                "isRealTime": "0", //optional, default = "1"
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 7:
+                            //loadArchiveDetails
+                            var params = {
+                                "type": "loadArchiveDetails",
+                                "diffStrategy": "STRATEGY_TOTAL_PROGRESS",
+                                "archiveId": "AA14I0V4G_gChJWeU_H2RRQalZZT5hvwA",
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        case conf.INIT_METHOD + 8:
+                            //updateArchive
+                            var params = {
+                                "type": "updateArchive",
+                                //"selectArchive": "recentArchive",
+                                "archiveId": "AA14I0V4G_gChJWeU_H2RRQalZZT5hvwA",
+                                "activeTime": "8000",
+                                "currentProgress": "60",
+                                "archiveDetails": "time=8000,progress=60",
+                                "descInfo": "savedata" + Math.ceil(Math.random() * 100),
+                                "thumbnail": "archiveIcon.png",
+                                "thumbnailMimeType": "png",
+                            };
+                            sdkhub.getUserPlugin().callFuncWithParam("archive", params);
+                            break;
+                        default:
+                            console.log("archive function: '" + this.lblButton.string + "' not called");
+                    }
+                }
+            }
+        } 
     },
 
     setContent(current, parent, name, topconfig) {

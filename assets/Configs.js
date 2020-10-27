@@ -15,7 +15,7 @@ var obj = {
     top : ["top", ""],
 
     //second menu
-    user : ["user", "top", "return", "init", "checkAppUpdate", "login",  "loginWithAuthorizationCode", "loginWithIDToken", "slientLogin", "getCurrentPlayer", "logout", "showToolBar", "hideToolBar", "getUserInfo", "showAchievements", "unlockAchievement", "submitScore", "showLeaderBoard", "cancelAuthorization", "submitEvent", "getEvent", "submitPlayerEventStart", "getPlayerExtraInfo", "submitPlayerEventEnd", "getGamePlayerStats", "getGameSummary", "setPopupsPosition", "getAppId", "cancelGameService"],
+    user : ["user", "top", "return", "init", "checkAppUpdate", "login",  "loginWithAuthorizationCode", "loginWithIDToken", "slientLogin", "getCurrentPlayer", "logout", "showToolBar", "hideToolBar", "getUserInfo", "showAchievements", "unlockAchievement", "submitScore", "showLeaderBoard", "archive", "cancelAuthorization", "submitEvent", "getEvent", "submitPlayerEventStart", "getPlayerExtraInfo", "submitPlayerEventEnd", "getGamePlayerStats", "getGameSummary", "setPopupsPosition", "getAppId", "cancelGameService"],
     fee : ["fee", "top", "return", "payForProduct", "isEnvReady", "obtainProductInfo", "consumeOwnedPurchase", "obtainOwnedPurchases", "obtainOwnedPurchaseRecord", "startIapActivity"],
     ads : ["ads", "top", "return", "showBannerAd", "hideBannerAd", "preloadRewardAd", "showRewardAd", "preloadInterstitialAd", "showInterstitialAd", "showNativeAd", "hideNativeAd"],
     push : ["push", "top", "return", "startPush", "closePush", "setAlias", "delAlias", "setTag", "delTag", "turnOnPush", "turnOffPush", "sendMessage", "getOdid", "getAAID", "deleteAAID", "isAutoInitEnabled", "setAutoInitEnabled"],
@@ -24,9 +24,10 @@ var obj = {
     //third menu
     //user
     showAchievements : ["showAchievements", "user", "return", "getShowAchievementListIntent", "getAchievementList"],
-    unlockAchievement : ["unlockAchievement", "user", "return", "visualizeWithResult", "growWithResult", "makeStepsWithResult", "reachWithResult"],
-    submitScore : ["submitScore", "user", "return", "getRankingSwitchStatus", "setRankingSwitchStatus", "submitRankingScore"],
+    unlockAchievement : ["unlockAchievement", "user", "return", "visualize", "visualizeWithResult", "grow", "growWithResult", "makeSteps", "makeStepsWithResult", "reach", "reachWithResult"],
+    submitScore : ["submitScore", "user", "return", "getRankingSwitchStatus", "setRankingSwitchStatus", "submitRankingScore", "submitScoreWithResult"],
     showLeaderBoard : ["showLeaderBoard", "user", "return", "getRankingsIntent", "getRankingSummary", "getCurrentPlayerRankingScore", "getPlayerCenteredRankingScores", "getMoreRankingScores", "getRankingTopScores"],
+    archive : ["archive", "user", "return", "setScopeList", "addArchive", "removeArchive", "getLimitThumbnailSize", "getLimitDetailsSize", "getShowArchiveListIntent", "getArchiveSummaryList", "loadArchiveDetails", "updateArchive"],
 
     //callback from 'obtainOwnedPurchases' and 'feeForProduct'
     paymentReceipt: [],

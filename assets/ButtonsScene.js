@@ -44,6 +44,14 @@ cc.Class({
     this.scrollView.scrollToTop(0.1);
     this.toastTimeCount = 0;
 
+    //Save a Image for Archive Function.
+    if (!jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + 'archiveIcon.png'))
+    {
+      var data = jsb.fileUtils.getDataFromFile(cc.url.raw("resources/rect1.png"));
+      var filePath = jsb.fileUtils.getWritablePath() + 'archiveIcon.png';
+      console.log(jsb.fileUtils.writeDataToFile(data, filePath));
+    }
+
     this.topConfig = conf.top;
 
     if (sdkhub.getSupportPluginIds().indexOf("User") != -1) {
