@@ -184,6 +184,9 @@ cc.Class({
                             //cancelGameService
                             sdkhub.getUserPlugin().callFuncWithParam("cancelGameService");
                             break;
+                        case conf.INIT_METHOD + 27:
+                            //smsStartConsent
+                            sdkhub.getUserPlugin().callFuncWithParam("smsStartConsent");
                         default:
                             console.log("user function: '" + this.lblButton.string + "' not called");
                     }
@@ -390,6 +393,36 @@ cc.Class({
                             var params = 1 - sdkhub.getPushPlugin().callBoolFuncWithParam("isAutoInitEnabled");
                             console.log("param = ", params);
                             sdkhub.getPushPlugin().callFuncWithParam("setAutoInitEnabled", params);
+                            break;
+                        case conf.INIT_METHOD + 14:
+                            //getToken
+                            var subjectID = conf.subjectId; // Please replace to subjectID from AGCconsole
+                            sdkhub.getPushPlugin().callFuncWithParam("getToken", subjectID);
+                            break;
+                        case conf.INIT_METHOD + 15:
+                            //deleteToken
+                            var subjectID = conf.subjectId; // Please replace to subjectID from AGC console
+                            sdkhub.getPushPlugin().callFuncWithParam("deleteToken", subjectID);
+                            break;
+                        case conf.INIT_METHOD + 16:
+                            //isSupportProfile
+                            console.log("isSupportProfile, ret = ", sdkhub.getPushPlugin().callBoolFuncWithParam("isSupportProfile"));
+                            break;
+                        case conf.INIT_METHOD + 17:
+                            //addProfile
+                            var params = {
+                                "type": "CUSTOM_PROFILE",
+                                "profileId": "PROFILE_ID_001"
+                            }
+                            sdkhub.getPushPlugin().callFuncWithParam("addProfile", params);
+                            break;
+                        case conf.INIT_METHOD + 18:
+                            //deleteProfile
+                            var params = {
+                                "type": "CUSTOM_PROFILE",
+                                "profileId": "PROFILE_ID_001"
+                            }
+                            sdkhub.getPushPlugin().callFuncWithParam("deleteProfile", params);
                             break;
                         default:
                             console.log("push function: '" + this.lblButton.string + "' not called");
