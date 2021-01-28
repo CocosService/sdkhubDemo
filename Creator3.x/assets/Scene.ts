@@ -31,13 +31,6 @@ export class Scene extends Component {
     this.scrollView!.scrollToTop(0.1);
     this.toastCountDown = 0;
 
-    //Save a Image for Archive Function.
-    // if (!jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + 'archiveIcon.png')) {
-    //   var data = jsb.fileUtils.getDataFromFile(cc.url.raw("resources/rect1.png"));
-    //   var filePath = jsb.fileUtils.getWritablePath() + 'archiveIcon.png';
-    //   console.log(jsb.fileUtils.writeDataToFile(data, filePath));
-    // }
-
     if (sdkhub.getSupportPluginIds().indexOf("User") != -1) {
       this.topConfig.push("Account & Game");
       sdkhub.getUserPlugin().setListener(this.onUserResult, this);

@@ -115,48 +115,48 @@ export class PrefabButton extends Component {
                            var userInfo = sdkhub.getUserPlugin().getUserInfo();
                            console.log("userInfo", JSON.stringify(userInfo));
                            break;
-                       case conf.INIT_METHOD + 16:
+                       case conf.INIT_METHOD + 15:
                            sdkhub.getUserPlugin().callFuncWithParam("cancelAuthorization");
                            break;
-                       case conf.INIT_METHOD + 17:
+                       case conf.INIT_METHOD + 16:
                            this.params = {
                                "eventId": conf.eventId,
                                "growAmount": "20"
                            };
                            sdkhub.getUserPlugin().callFuncWithParam("submitEvent", this.params);
                            break;
-                       case conf.INIT_METHOD + 18:
+                       case conf.INIT_METHOD + 17:
                            this.params = {};
                            sdkhub.getUserPlugin().callFuncWithParam("getEvent", this.params);
                            break;
-                       case conf.INIT_METHOD + 19:
+                       case conf.INIT_METHOD + 18:
                            sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventStart");
                            break;
-                       case conf.INIT_METHOD + 20:
+                       case conf.INIT_METHOD + 19:
                            sdkhub.getUserPlugin().callFuncWithParam("getPlayerExtraInfo");
                            break;
-                       case conf.INIT_METHOD + 21:
+                       case conf.INIT_METHOD + 20:
                            sdkhub.getUserPlugin().callFuncWithParam("submitPlayerEventEnd");
                            break;
-                       case conf.INIT_METHOD + 22:
+                       case conf.INIT_METHOD + 21:
                            this.params = 0;
                            sdkhub.getUserPlugin().callFuncWithParam("getGamePlayerStats", this.params);
                            break;
-                       case conf.INIT_METHOD + 23:
+                       case conf.INIT_METHOD + 22:
                            this.params = 0;
                            sdkhub.getUserPlugin().callFuncWithParam("getGameSummary", this.params);
                            break;
-                       case conf.INIT_METHOD + 24:
+                       case conf.INIT_METHOD + 23:
                            this.params = 1;
                            sdkhub.getUserPlugin().callFuncWithParam("setPopupsPosition", this.params);
                            break;
-                       case conf.INIT_METHOD + 25:
+                       case conf.INIT_METHOD + 24:
                            sdkhub.getUserPlugin().callFuncWithParam("getAppId");
                            break;
-                       case conf.INIT_METHOD + 26:
+                       case conf.INIT_METHOD + 25:
                            sdkhub.getUserPlugin().callFuncWithParam("cancelGameService");
                            break;
-                       case conf.INIT_METHOD + 27:
+                       case conf.INIT_METHOD + 26:
                            sdkhub.getUserPlugin().callFuncWithParam("smsStartConsent");
                        default:
                            console.log("user function: '" + this.lblButton!.string + "' not called");
@@ -556,93 +556,6 @@ export class PrefabButton extends Component {
                }
            }
         }
-        else if (this.currentname == "archive") {
-           for (var i = conf.INIT_METHOD; i < conf.archive.length; i++) {
-               if (this.lblButton!.string == conf.archive[i]) {
-                   switch (i) {
-                       case conf.INIT_METHOD:
-                           console.log("Please call the method before login.");
-                           this.params = {
-                               "type": "setScopeList",
-                           }
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 1:
-                           this.params = {
-                               "type": "addArchive",
-                               "activeTime": "5000",
-                               "currentProgress": "50",
-                               "archiveDetails": "time = 5000, progress = 50",
-                               "descInfo": "savedata" + Math.ceil(Math.random() * 100),
-                               "thumbnail": "archiveIcon.png",
-                               "thumbnailMimeType": "png",
-                               "isSupportCache" : "1", 
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 2:
-                           this.params = {
-                               "type": "removeArchive",
-                               "archiveId": "AA14I0V4G_gChJWeU_H2RRQalZZT5hvwA",
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 3:
-                           this.params = {
-                               "type": "getLimitThumbnailSize",
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 4:
-                           this.params = {
-                               "type": "getLimitDetailsSize",
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 5:
-                           this.params = {
-                               "type": "getShowArchiveListIntent",
-                               "title": "Savedata",
-                               "allowAddBtn": "1",    //optional, default = "0"
-                               "allowDeleteBtn": "1", //optional, default = "0"
-                               "maxArchive": "5", //optional, default = "-1"
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 6:
-                           this.params = {
-                               "type": "getArchiveSummaryList",
-                               "isRealTime": "0", //optional, default = "1"
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 7:
-                           this.params = {
-                               "type": "loadArchiveDetails",
-                               "diffStrategy": "STRATEGY_TOTAL_PROGRESS",
-                               "archiveId": "AA14I0V4G_gChJWeU_H2RRQalZZT5hvwA",
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       case conf.INIT_METHOD + 8:
-                           this.params = {
-                               "type": "updateArchive",
-                               "archiveId": "AA14I0V4G_gChJWeU_H2RRQalZZT5hvwA",
-                               "activeTime": "8000",
-                               "currentProgress": "60",
-                               "archiveDetails": "time=8000,progress=60",
-                               "descInfo": "savedata" + Math.ceil(Math.random() * 100),
-                               "thumbnail": "archiveIcon.png",
-                               "thumbnailMimeType": "png",
-                           };
-                           sdkhub.getUserPlugin().callFuncWithParam("archive", this.params);
-                           break;
-                       default:
-                           console.log("archive function: '" + this.lblButton!.string + "' not called");
-                   }
-               }
-           }
-        } 
     }
 
     setContent(current: string, parent: string, name: string, topconfig: string[]) {
