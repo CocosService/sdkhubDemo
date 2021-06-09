@@ -1,14 +1,13 @@
-
 var conf = require('Configs');
 if (CC_EDITOR) {
   if (!Editor.CocosService_sdkhubDemo) {
     Editor.CocosService_sdkhubDemo = true;
-    Editor.log(Editor.lang === "zh"
-      ? "欢迎使用 SDKHub 服务！"
-      : "Welcome to SDKHub service!");
-    Editor.log(Editor.lang === "zh"
-      ? "这是一个简单的 SDKHub 示例 Demo，通过本示例您可以快速了解如何使用 SDKHub 来接入原生第三方 SDK！"
-      : "This is a simple SDKHub sample demo. You can learn how to use SDKHub to intergrate third SDKs !"
+    Editor.log(Editor.lang === "zh" ?
+      "欢迎使用 SDKHub 服务！" :
+      "Welcome to SDKHub service!");
+    Editor.log(Editor.lang === "zh" ?
+      "这是一个简单的 SDKHub 示例 Demo，通过本示例您可以快速了解如何使用 SDKHub 来接入原生第三方 SDK！" :
+      "This is a simple SDKHub sample demo. You can learn how to use SDKHub to intergrate third SDKs !"
     );
   }
 }
@@ -45,32 +44,32 @@ cc.Class({
     this.toastTimeCount = 0;
 
     //Save a Image for Archive Function.
-    if (!jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + 'archiveIcon.png'))
-    {
+    if (!jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + 'archiveIcon.png')) {
       var data = jsb.fileUtils.getDataFromFile(cc.url.raw("resources/rect1.png"));
       var filePath = jsb.fileUtils.getWritablePath() + 'archiveIcon.png';
       console.log(jsb.fileUtils.writeDataToFile(data, filePath));
     }
 
     this.topConfig = conf.top;
+    this.supportPluginIds = sdkhub.getSupportPluginIds();
 
-    if (sdkhub.getSupportPluginIds().indexOf("User") != -1) {
+    if (this.supportPluginIds.indexOf("User") != -1) {
       this.topConfig.push("Account & Game");
       sdkhub.getUserPlugin().setListener(this.onUserResult, this);
     }
-    if (sdkhub.getSupportPluginIds().indexOf("Fee") != -1) {
+    if (this.supportPluginIds.indexOf("Fee") != -1) {
       this.topConfig.push("IAP");
       sdkhub.getFeePlugin().setListener(this.onFeeResult, this);
     }
-    if (sdkhub.getSupportPluginIds().indexOf("Ads") != -1) {
+    if (this.supportPluginIds.indexOf("Ads") != -1) {
       this.topConfig.push("Ads");
       sdkhub.getAdsPlugin().setListener(this.onAdsResult, this);
     }
-    if (sdkhub.getSupportPluginIds().indexOf("Push") != -1) {
+    if (this.supportPluginIds.indexOf("Push") != -1) {
       this.topConfig.push("Push");
       sdkhub.getPushPlugin().setListener(this.onPushResult, this);
     }
-    if (sdkhub.getSupportPluginIds().indexOf("Custom") != -1) {
+    if (this.supportPluginIds.indexOf("Custom") != -1) {
       this.topConfig.push("Custom");
       sdkhub.getCustomPlugin().setListener(this.onCustomResult, this);
     }
@@ -80,22 +79,42 @@ cc.Class({
   update(dt) {
     if (this.toastTimeCount > 0) {
       this.toastTimeCount -= dt;
-    }
-    else {
+    } else {
       this.nodeToast.active = false;
     }
   },
 
   setButtons(menu) {
+    let idx = 0;
     this.scrollView.content.removeAllChildren(true);
     for (let index = 2; index < menu.length; ++index) {
+      if (!this.validatePluginFunc(menu[0], menu[index])) continue;
       let buttonItem = cc.instantiate(this.prefabButton);
       buttonItem.name = menu[index];
       this.scrollView.content.addChild(buttonItem);
-      buttonItem.y = - (buttonItem.height / 2) + ((index - 2) * - buttonItem.height);
+      buttonItem.y = -(buttonItem.height / 2) + ((idx) * -buttonItem.height);
       buttonItem.getComponent(this.prefabButton.name).setContent(menu[0], menu[1], menu[index], this.topConfig);
+      idx++;
     }
     this.scrollView.content.height = (menu.length - 2) * this.prefabButton.data.height;
+  },
+
+  validatePluginFunc(plugin, funcName) {
+    if (funcName === 'return') return true;
+    switch (plugin) {
+      case 'user':
+        return sdkhub.getUserPlugin().isFunctionSupported(funcName);
+      case 'fee':
+        return sdkhub.getFeePlugin().isFunctionSupported(funcName);
+      case 'ads':
+        return sdkhub.getAdsPlugin().isFunctionSupported(funcName);
+      case 'push':
+        return sdkhub.getPushPlugin().isFunctionSupported(funcName);
+      case 'custom':
+        return sdkhub.getCustomPlugin().isFunctionSupported(funcName);
+      default:
+        return true;
+    }
   },
 
   isJSON(str) {
@@ -134,8 +153,7 @@ cc.Class({
         otherParams = otherParams.slice(0, 100) + "...";
       }
       ret += "otherParams = " + otherParams;
-    }
-    else {
+    } else {
       if (msg.length >= 103) {
         msg = msg.slice(0, 100) + "...";
       }
@@ -170,10 +188,10 @@ cc.Class({
         conf.paymentReceipt.unshift(JSON.parse(msg));
         console.log("kFeeSucceed", conf.paymentReceipt);
         break;
-      // obtainOwnedPurchases succeed
+        // obtainOwnedPurchases succeed
       case sdkhub.FeeResultCode.kFeeExtension + 106:
         // Recommended to check the Plugin ID when using extended callbacks
-        if (sdkhub.getFeePlugin().getPluginId() == "FeeHuawei"){
+        if (sdkhub.getFeePlugin().getPluginId() === "FeeHuawei") {
           conf.paymentReceipt = JSON.parse(msg);
           console.log("obtainOwnedPurchases", JSON.stringify(conf.paymentReceipt));
         }

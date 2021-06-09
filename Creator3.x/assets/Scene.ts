@@ -71,11 +71,10 @@ export class Scene extends Component {
     }
     
     for (let index = 2; index < menu.length; ++index) {
-
+      if (!this.validatePluginFunc(menu[0], menu[index])) continue;
       let buttonItem = instantiate(this.prefabButton);
       //@ts-ignore
       this.scrollView!.content!.addChild(buttonItem);
-
       //@ts-ignore
       buttonItem.setPosition(0, - (buttonItem.getComponent(UITransform).height / 2) + ((index - 2) * - buttonItem.getComponent(UITransform).height), 0);
       //@ts-ignore
@@ -83,6 +82,24 @@ export class Scene extends Component {
     }
     //@ts-ignore
     this.scrollView.content.getComponent(UITransform).height = (menu.length - 2) * this.prefabButton.data.getComponent(UITransform).height;
+  }
+
+  validatePluginFunc(plugin: string, funcName: string): boolean {
+    if (funcName === 'return') return true;
+    switch (plugin) {
+      case 'user':
+        return sdkhub.getUserPlugin().isFunctionSupported(funcName);
+      case 'fee':
+        return sdkhub.getFeePlugin().isFunctionSupported(funcName);
+      case 'ads':
+        return sdkhub.getAdsPlugin().isFunctionSupported(funcName);
+      case 'push':
+        return sdkhub.getPushPlugin().isFunctionSupported(funcName);
+      case 'custom':
+        return sdkhub.getCustomPlugin().isFunctionSupported(funcName);
+      default:
+        return true;
+    }
   }
 
   isJSON(str: string) {
