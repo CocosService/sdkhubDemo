@@ -92,11 +92,11 @@ cc.Class({
       let buttonItem = cc.instantiate(this.prefabButton);
       buttonItem.name = menu[index];
       this.scrollView.content.addChild(buttonItem);
-      buttonItem.y = -(buttonItem.height / 2) + ((idx) * -buttonItem.height);
+      buttonItem.y = -(buttonItem.height / 2) + (idx * -buttonItem.height);
       buttonItem.getComponent(this.prefabButton.name).setContent(menu[0], menu[1], menu[index], this.topConfig);
       idx++;
     }
-    this.scrollView.content.height = (menu.length - 2) * this.prefabButton.data.height;
+    this.scrollView.content.height = idx * this.prefabButton.data.height;
   },
 
   validatePluginFunc(plugin, funcName) {

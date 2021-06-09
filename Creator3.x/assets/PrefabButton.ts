@@ -54,18 +54,50 @@ export class PrefabButton extends Component {
         }
         else if (this.currentname == "user") {
            if (this.lblButton!.string == "showAchievements") {
+                if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
+                  this.params = {
+                    "achievement_id": conf.google.achievementId,
+                  };
+                  sdkhub.getUserPlugin().showAchievements(this.params);
+                  return;
+                }
                this.buttonScene.setButtons(conf.showAchievements);
                return;
            }
            else if (this.lblButton!.string == "unlockAchievement") {
+                if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
+                  this.params = {
+                    "achievement_id": conf.google.achievementId,
+                    // 阶段性成就需要
+                    // Phased achievement needs
+                    // "numSteps": "1", 
+                  };
+                  sdkhub.getUserPlugin().showLeaderBoard(this.params);
+                  return;
+                }
                this.buttonScene.setButtons(conf.unlockAchievement);
                return;
            }
            else if (this.lblButton!.string == "submitScore") {
+                if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
+                  this.params = {
+                    "leaderboard_id": conf.google.leaderboardId,
+                    "score": "6000",
+                  };
+                  sdkhub.getUserPlugin().submitScore(this.params);
+                  return;
+                }
                this.buttonScene.setButtons(conf.submitScore);
                return;
            }
            else if (this.lblButton!.string == "showLeaderBoard") {
+                if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
+                  this.params = {
+                    "leaderboard_id": conf.google.leaderboardId,
+                  };
+                  sdkhub.getUserPlugin().showLeaderBoard(this.params);
+                  return;
+                }
                this.buttonScene.setButtons(conf.showLeaderBoard);
                return;
            }
@@ -169,7 +201,7 @@ export class PrefabButton extends Component {
                if (this.lblButton!.string == conf.fee[i]) {
                    switch (i) {
                        case conf.INIT_METHOD:
-                          if (sdkhub.getUserPlugin().getPluginId() === "FeeGooglePlay") {
+                          if (sdkhub.getFeePlugin().getPluginId() === "FeeGooglePlay") {
                             this.params = {
                               "Product_Id": conf.google.productId,
                               "Order_Id": "gold_1px_0001",
@@ -368,10 +400,6 @@ export class PrefabButton extends Component {
            }
         }
         else if (this.currentname == "showAchievements") {
-          if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
-            sdkhub.getUserPlugin().showAchievements({});
-            return;
-          }
            for (var i = conf.INIT_METHOD; i < conf.showAchievements.length; i++) {
                if (this.lblButton!.string == conf.showAchievements[i]) {
                    switch (i) {
@@ -395,14 +423,6 @@ export class PrefabButton extends Component {
            }
         }
         else if (this.currentname == "submitScore") {
-          if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
-            this.params = {
-              "leaderboard_id": conf.google.leaderboardId,
-              "score": "6000",
-            };
-            sdkhub.getUserPlugin().submitScore(this.params);
-            return;
-          }
            for (var i = conf.INIT_METHOD; i < conf.submitScore.length; i++) {
                if (this.lblButton!.string == conf.submitScore[i]) {
                    switch (i) {
@@ -445,13 +465,6 @@ export class PrefabButton extends Component {
            }
         }
         else if (this.currentname == "showLeaderBoard") {
-          if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
-            this.params = {
-              "leaderboard_id": conf.google.leaderboardId,
-            };
-            sdkhub.getUserPlugin().showLeaderBoard(this.params);
-            return;
-          }
            for (var i = conf.INIT_METHOD; i < conf.showLeaderBoard.length; i++) {
                if (this.lblButton!.string == conf.showLeaderBoard[i]) {
                    switch (i) {
@@ -516,16 +529,6 @@ export class PrefabButton extends Component {
            }
         }
         else if (this.currentname == "unlockAchievement") {
-          if (sdkhub.getUserPlugin().getPluginId() === "UserGooglePlay") {
-            this.params = {
-              "achievement_id": conf.google.achievementId,
-              // 阶段性成就需要
-              // Phased achievement needs
-              // "numSteps": "1", 
-            };
-            sdkhub.getUserPlugin().showLeaderBoard(this.params);
-            return;
-          }
            for (var i = conf.INIT_METHOD; i < conf.unlockAchievement.length; i++) {
                if (this.lblButton!.string == conf.unlockAchievement[i]) {
                    switch (i) {

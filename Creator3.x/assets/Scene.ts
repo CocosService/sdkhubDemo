@@ -69,19 +69,20 @@ export class Scene extends Component {
     if(this.scrollView!.content!.children) {
       this.scrollView!.content!.removeAllChildren();
     }
-    
+    let idx = 0;
     for (let index = 2; index < menu.length; ++index) {
       if (!this.validatePluginFunc(menu[0], menu[index])) continue;
       let buttonItem = instantiate(this.prefabButton);
       //@ts-ignore
       this.scrollView!.content!.addChild(buttonItem);
       //@ts-ignore
-      buttonItem.setPosition(0, - (buttonItem.getComponent(UITransform).height / 2) + ((index - 2) * - buttonItem.getComponent(UITransform).height), 0);
+      buttonItem.setPosition(0, - (buttonItem.getComponent(UITransform).height / 2) + (idx * - buttonItem.getComponent(UITransform).height), 0);
       //@ts-ignore
       buttonItem.getComponent(this.prefabButton.data.name).setContent(menu[0], menu[1], menu[index], this.topConfig);
+      idx++;
     }
     //@ts-ignore
-    this.scrollView.content.getComponent(UITransform).height = (menu.length - 2) * this.prefabButton.data.getComponent(UITransform).height;
+    this.scrollView.content.getComponent(UITransform).height = idx * this.prefabButton.data.getComponent(UITransform).height;
   }
 
   validatePluginFunc(plugin: string, funcName: string): boolean {
