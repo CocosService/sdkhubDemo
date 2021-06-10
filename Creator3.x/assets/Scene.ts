@@ -1,9 +1,9 @@
 
-import { _decorator, Component, Node, ScrollView, Prefab, instantiate, UITransform, Label, Asset} from 'cc';
+import { _decorator, Component, Node, ScrollView, Prefab, instantiate, UITransform, Label, Asset } from 'cc';
 import { conf } from './Configs';
 
-declare const jsb: { 
-  reflection: { callStaticMethod: (...args: any) => any; }; 
+declare const jsb: {
+  reflection: { callStaticMethod: (...args: any) => any; };
   fileUtils: any;
 };
 
@@ -11,15 +11,15 @@ const { ccclass, property } = _decorator;
 @ccclass('Scene')
 export class Scene extends Component {
 
-  @property({type: ScrollView})
+  @property({ type: ScrollView })
   public scrollView: ScrollView | null = null;
-  @property({type: Prefab})
+  @property({ type: Prefab })
   public prefabButton: Prefab | null = null;
-  @property({type: Node})
+  @property({ type: Node })
   public nodeToast: Node | null = null;
-  @property({type: Label})
+  @property({ type: Label })
   public lblCallback: Label | null = null;
-  @property({type: Asset})
+  @property({ type: Asset })
   public iconAsset: Asset | null = null;
   @property
   public toastCountDown = 0;
@@ -66,7 +66,7 @@ export class Scene extends Component {
 
   setButtons(menu: any) {
 
-    if(this.scrollView!.content!.children) {
+    if (this.scrollView!.content!.children) {
       this.scrollView!.content!.removeAllChildren();
     }
     let idx = 0;
@@ -192,12 +192,12 @@ export class Scene extends Component {
           console.log("obtainOwnedPurchases", JSON.stringify(conf.paymentReceipt));
         }
         break;
-        case 9: 
-          this.showToast(0, "inapp consume success!")
-          break;
-        case 10:
-          this.showToast(0, "subs consume success!")
-          break;
+      case 9:
+        this.showToast(0, "inapp consume success!")
+        break;
+      case 10:
+        this.showToast(0, "subs consume success!")
+        break;
     }
   }
 

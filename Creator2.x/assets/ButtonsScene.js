@@ -38,7 +38,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {
+  onLoad () {
     this.nodeToast.active = false;
     this.scrollView.scrollToTop(0.1);
     this.toastTimeCount = 0;
@@ -76,7 +76,7 @@ cc.Class({
     this.setButtons(this.topConfig);
   },
 
-  update(dt) {
+  update (dt) {
     if (this.toastTimeCount > 0) {
       this.toastTimeCount -= dt;
     } else {
@@ -84,7 +84,7 @@ cc.Class({
     }
   },
 
-  setButtons(menu) {
+  setButtons (menu) {
     let idx = 0;
     this.scrollView.content.removeAllChildren(true);
     for (let index = 2; index < menu.length; ++index) {
@@ -99,7 +99,7 @@ cc.Class({
     this.scrollView.content.height = idx * this.prefabButton.data.height;
   },
 
-  validatePluginFunc(plugin, funcName) {
+  validatePluginFunc (plugin, funcName) {
     if (funcName === 'return') return true;
     switch (plugin) {
       case 'user':
@@ -117,7 +117,7 @@ cc.Class({
     }
   },
 
-  isJSON(str) {
+  isJSON (str) {
     if (typeof str == 'string') {
       try {
         var obj = JSON.parse(str);
@@ -132,7 +132,7 @@ cc.Class({
     }
   },
 
-  showToast(code, msg) {
+  showToast (code, msg) {
     var ret = "code = " + code + ",\n\n";
     if (this.isJSON(msg)) {
       var jsonObj = JSON.parse(msg);
@@ -198,20 +198,20 @@ cc.Class({
           console.log("kFeeSucceed", conf.paymentReceipt);
           break;
         }
-        // obtainOwnedPurchases succeed
-        case sdkhub.FeeResultCode.kFeeExtension + 106:
-          // Recommended to check the Plugin ID when using extended callbacks
-          if (sdkhub.getFeePlugin().getPluginId() === "FeeHuawei") {
-            conf.paymentReceipt = JSON.parse(msg);
-            console.log("obtainOwnedPurchases", JSON.stringify(conf.paymentReceipt));
-          }
-          break;
-        case 9:
-          this.showToast(0, "inapp consume success!")
-          break;
-        case 10:
-          this.showToast(0, "subs consume success!")
-          break;
+      // obtainOwnedPurchases succeed
+      case sdkhub.FeeResultCode.kFeeExtension + 106:
+        // Recommended to check the Plugin ID when using extended callbacks
+        if (sdkhub.getFeePlugin().getPluginId() === "FeeHuawei") {
+          conf.paymentReceipt = JSON.parse(msg);
+          console.log("obtainOwnedPurchases", JSON.stringify(conf.paymentReceipt));
+        }
+        break;
+      case 9:
+        this.showToast(0, "inapp consume success!")
+        break;
+      case 10:
+        this.showToast(0, "subs consume success!")
+        break;
     }
   },
 

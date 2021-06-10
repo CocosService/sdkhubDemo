@@ -16,12 +16,12 @@ cc.Class({
     currentname: null,
   },
 
-  start() {
+  start () {
     this.btnButton.node.on('touchend', this.buttonPressed.bind(this));
     this.btnScene = cc.find("Canvas").getComponent("ButtonsScene");
   },
 
-  buttonPressed() {
+  buttonPressed () {
     console.log(this.currentname, this.lblButton.string + " button pressed");
 
     if (this.parentname == "top" && this.lblButton.string == "return") {
@@ -153,7 +153,7 @@ cc.Class({
               console.log("userInfo", JSON.stringify(userInfo));
               break;
 
-              // Extension method, call by `callFuncWithParam`.
+            // Extension method, call by `callFuncWithParam`.
             case conf.INIT_METHOD + 16:
               //cancelAuthorization
               sdkhub.getUserPlugin().callFuncWithParam("cancelAuthorization");
@@ -242,7 +242,7 @@ cc.Class({
               sdkhub.getFeePlugin().feeForProduct(params);
               break;
 
-              // Extension method, call by `callFuncWithParam`.
+            // Extension method, call by `callFuncWithParam`.
             case conf.INIT_METHOD + 1:
               //isEnvReady
               sdkhub.getFeePlugin().callFuncWithParam("isEnvReady");
@@ -421,7 +421,7 @@ cc.Class({
               sdkhub.getPushPlugin().delTags(params)
               break;
 
-              // Extension method, call by `callFuncWithParam`.
+            // Extension method, call by `callFuncWithParam`.
             case conf.INIT_METHOD + 6:
               //turnOnPush
               sdkhub.getPushPlugin().callFuncWithParam("turnOnPush");
@@ -816,7 +816,7 @@ cc.Class({
     }
   },
 
-  setContent(current, parent, name, topconfig) {
+  setContent (current, parent, name, topconfig) {
     this.parentname = parent;
     this.currentname = current;
     this.lblButton.string = name;
