@@ -171,9 +171,19 @@ export class Scene extends Component {
       // Process the "consumeOwnedPurchase" method logic, temp storage the payment receipt.
       // pay succeed
       case sdkhub.FeeResultCode.kFeeSucceed:
-        conf.paymentReceipt = JSON.parse(msg);
-        console.log("kFeeSucceed", conf.paymentReceipt);
-        break;
+        if (sdkhub.getFeePlugin().getPluginId() === 'FeeGooglePlay') {
+          // 支付成功，此时应该向的服务端验证交易以确定是否进行商品消费或者立即消费商品
+          // The payment is successful. At this time, the transaction should be verified with the server to determine whether to consume the goods or immediately consume the goods
+          let ret = JSON.parse(msg)
+          sdkhub.getFeePlugin().callFuncWithParam("consume", {
+            purchaseToken: ret.purchaseToken,
+            skuType: conf.google.skuType
+          });
+        } else {
+          conf.paymentReceipt = JSON.parse(msg);
+          console.log("kFeeSucceed", conf.paymentReceipt);
+          break;
+        }
       // obtainOwnedPurchases succeed
       case sdkhub.FeeResultCode.kFeeExtension + 106:
         // Recommended to check the Plugin ID when using extended callbacks
@@ -182,6 +192,12 @@ export class Scene extends Component {
           console.log("obtainOwnedPurchases", JSON.stringify(conf.paymentReceipt));
         }
         break;
+        case 9: 
+          this.showToast(0, "inapp consume success!")
+          break;
+        case 10:
+          this.showToast(0, "subs consume success!")
+          break;
     }
   }
 

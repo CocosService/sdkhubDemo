@@ -253,6 +253,14 @@ export class PrefabButton extends Component {
                            };
                            sdkhub.getFeePlugin().callFuncWithParam("startIapActivity", this.params);
                            break;
+                       case conf.INIT_METHOD + 7:
+                        //consume
+                        var params = {
+                          "purchaseToken": "purchaseToken",
+                          "skuType": "skuType"
+                        };
+                        // sdkhub.getFeePlugin().callFuncWithParam("consume", params);
+                        break;
                        default:
                            console.log("fee function: '" + this.lblButton!.string + "' not called");
                    }
