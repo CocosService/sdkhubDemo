@@ -64,7 +64,7 @@ cc.Class({
             // Phased achievement needs
             // "numSteps": "1", 
           };
-          sdkhub.getUserPlugin().showLeaderBoard(params);
+          sdkhub.getUserPlugin().unlockAchievement(params);
           return;
         }
         this.btnScene.setButtons(conf.unlockAchievement);
