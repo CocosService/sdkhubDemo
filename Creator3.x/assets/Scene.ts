@@ -87,6 +87,7 @@ export class Scene extends Component {
 
   validatePluginFunc(plugin: string, funcName: string): boolean {
     if (funcName === 'return') return true;
+    if (funcName.endsWith("Ad")) return true;
     switch (plugin) {
       case 'user':
         return sdkhub.getUserPlugin().isFunctionSupported(funcName);
