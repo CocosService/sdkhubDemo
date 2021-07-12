@@ -72,7 +72,7 @@ export class PrefabButton extends Component {
             // Phased achievement needs
             // "numSteps": "1", 
           };
-          sdkhub.getUserPlugin().showLeaderBoard(this.params);
+          sdkhub.getUserPlugin().unlockAchievement(this.params);
           return;
         }
         this.buttonScene.setButtons(conf.unlockAchievement);
