@@ -223,7 +223,7 @@ export class PrefabButton extends Component {
             case conf.INIT_METHOD + 2:
               this.params = {
                 "productIdList": conf.obtainProductIdList,
-                "priceType": 0
+                "priceType": "0"
               };
               sdkhub.getFeePlugin().callFuncWithParam("obtainProductInfo", this.params);
               break;
@@ -443,7 +443,7 @@ export class PrefabButton extends Component {
             case conf.INIT_METHOD + 1:
               this.params = {
                 "type": "setRankingSwitchStatus",
-                "stateValue": 1
+                "stateValue": "1"
               };
               sdkhub.getUserPlugin().submitScore(this.params);
               break;
